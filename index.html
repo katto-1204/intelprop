@@ -1,0 +1,3697 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+    <title>Intellectual Property — Group 4</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@700;800;900&family=Inter:wght@400;500;600;700;800&family=DM+Mono:wght@400;500&display=swap"
+        rel="stylesheet">
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+        import { getDatabase, ref, onValue, push } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-database.js";
+        const c = { apiKey: "demo", authDomain: "ip4.firebaseapp.com", databaseURL: "https://ip4-default-rtdb.firebaseio.com", projectId: "ip4", storageBucket: "ip4.appspot.com", messagingSenderId: "1", appId: "1:1:web:1" };
+        let db = null; try { const a = initializeApp(c); db = getDatabase(a); } catch (e) { }
+        window.$save = async d => { try { if (db) { await push(ref(db, 's4'), d); return; } } catch (e) { } const s = JSON.parse(localStorage.getItem('ip4')) || []; s.push(d); localStorage.setItem('ip4', JSON.stringify(s)); };
+        window.$listen = cb => { try { if (db) { onValue(ref(db, 's4'), s => { cb(s.val() ? Object.values(s.val()) : []); }); return; } } catch (e) { } cb(JSON.parse(localStorage.getItem('ip4') || '[]')); };
+    </script>
+    <style>
+        /* ═══════════ TOKENS ═══════════ */
+        :root {
+            --b: #1740e8;
+            --bd: #0f2cb0;
+            --bl: rgba(23, 64, 232, .08);
+            --bl2: rgba(23, 64, 232, .18);
+            --y: #f5c800;
+            --yl: rgba(245, 200, 0, .13);
+            --bg: #f2f1ec;
+            --bg2: #e8e7e0;
+            --sur: #fff;
+            --ink: #0d0d0d;
+            --i2: #454545;
+            --i3: #8a8a8a;
+            --bor: rgba(0, 0, 0, .08);
+            --bor2: rgba(0, 0, 0, .14);
+            --s1: 0 1px 3px rgba(0, 0, 0, .06), 0 4px 16px rgba(0, 0, 0, .06);
+            --s2: 0 2px 6px rgba(0, 0, 0, .05), 0 12px 36px rgba(0, 0, 0, .11);
+            --s3: 0 4px 8px rgba(0, 0, 0, .04), 0 24px 64px rgba(0, 0, 0, .14);
+            --H: 'Barlow Condensed', sans-serif;
+            --I: 'Inter', sans-serif;
+            --M: 'DM Mono', monospace;
+            --e: cubic-bezier(.65, 0, .35, 1);
+            --tb: 52px;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        html,
+        body {
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            background: var(--bg);
+            color: var(--ink);
+            font-family: var(--I);
+        }
+
+        /* ═══ TOPBAR ═══ */
+        #tb {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: var(--tb);
+            z-index: 900;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 clamp(14px, 3vw, 24px);
+            background: rgba(242, 241, 236, .9);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--bor);
+        }
+
+        .tb-l {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .tb-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: var(--b);
+            flex-shrink: 0;
+        }
+
+        .tb-logo {
+            font-family: var(--H);
+            font-weight: 900;
+            font-size: 16px;
+            letter-spacing: .5px;
+            color: var(--ink);
+            line-height: 1;
+        }
+
+        .tb-logo b {
+            color: var(--b);
+        }
+
+        .tb-div {
+            width: 1px;
+            height: 16px;
+            background: var(--bor2);
+        }
+
+        #tbc {
+            font-size: 11px;
+            color: var(--i3);
+            font-weight: 600;
+            letter-spacing: .5px;
+        }
+
+        .tbr {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .ib {
+            width: 34px;
+            height: 34px;
+            border-radius: 9px;
+            border: 1.5px solid var(--bor2);
+            background: transparent;
+            color: var(--i2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all .18s;
+            flex-shrink: 0;
+        }
+
+        .ib:hover {
+            background: var(--b);
+            color: #fff;
+            border-color: var(--b);
+        }
+
+        #qbtn {
+            background: var(--b);
+            color: #fff;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 9px;
+            font-family: var(--H);
+            font-weight: 900;
+            font-size: 13px;
+            letter-spacing: 1px;
+            cursor: pointer;
+            transition: all .18s;
+            box-shadow: 0 2px 12px rgba(23, 64, 232, .3);
+        }
+
+        #qbtn:hover {
+            background: var(--bd);
+            transform: translateY(-1px);
+            box-shadow: 0 4px 20px rgba(23, 64, 232, .35);
+        }
+
+        /* ═══ DECK & SLIDES ═══ */
+        #deck {
+            position: fixed;
+            top: var(--tb);
+            left: 0;
+            right: 0;
+            bottom: 0;
+            overflow: hidden;
+        }
+
+        .slide {
+            position: absolute;
+            inset: 0;
+            display: flex;
+            align-items: flex-start;
+            justify-content: center;
+            padding: clamp(14px, 2.5vw, 32px) clamp(14px, 3.5vw, 48px) 64px;
+            overflow-x: hidden;
+            overflow-y: auto;
+            opacity: 0;
+            pointer-events: none;
+            transform: translateX(60px) scale(.98);
+            transition: opacity .44s var(--e), transform .44s var(--e);
+            background: var(--bg);
+            scrollbar-width: thin;
+            scrollbar-color: var(--bl2) transparent;
+        }
+
+        .slide::-webkit-scrollbar {
+            width: 4px;
+        }
+
+        .slide::-webkit-scrollbar-track {
+            background: transparent;
+        }
+
+        .slide::-webkit-scrollbar-thumb {
+            background: var(--bl2);
+            border-radius: 4px;
+        }
+
+        .slide.act {
+            opacity: 1;
+            pointer-events: all;
+            transform: none;
+        }
+
+        .slide.out {
+            opacity: 0;
+            transform: translateX(-60px) scale(.98);
+        }
+
+        /* center variant for big hero slides */
+        .slide.center {
+            align-items: center;
+        }
+
+        /* BG Patterns */
+        .bg-grid {
+            position: absolute;
+            inset: 0;
+            pointer-events: none;
+            z-index: 0;
+            background-image: linear-gradient(rgba(23, 64, 232, .025) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(23, 64, 232, .025) 1px, transparent 1px);
+            background-size: 40px 40px;
+        }
+
+        .bg-dots {
+            position: absolute;
+            inset: 0;
+            pointer-events: none;
+            z-index: 0;
+            background-image: radial-gradient(circle, rgba(23, 64, 232, .055) 1px, transparent 1px);
+            background-size: 20px 20px;
+        }
+
+        .para {
+            position: absolute;
+            pointer-events: none;
+            will-change: transform;
+            z-index: 0;
+        }
+
+        /* ═══ CONTENT WRAPPER ═══ */
+        .si {
+            position: relative;
+            z-index: 2;
+            width: 100%;
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+
+        /* ═══ TYPOGRAPHY ═══ */
+        .lbl {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 10px;
+            font-size: 10px;
+            font-weight: 700;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            color: var(--b);
+        }
+
+        .lbl::before {
+            content: '';
+            width: 20px;
+            height: 2px;
+            background: var(--b);
+            flex-shrink: 0;
+        }
+
+        .H {
+            font-family: var(--H);
+            font-weight: 900;
+            text-transform: uppercase;
+            color: var(--ink);
+            line-height: .88;
+        }
+
+        .H.xl {
+            font-size: clamp(42px, 8vw, 110px);
+            letter-spacing: -1px;
+        }
+
+        .H.lg {
+            font-size: clamp(32px, 5.5vw, 72px);
+            letter-spacing: -.5px;
+        }
+
+        .H.md {
+            font-size: clamp(26px, 4vw, 54px);
+            letter-spacing: -.3px;
+        }
+
+        .H.sm {
+            font-size: clamp(22px, 3vw, 40px);
+        }
+
+        .H .b {
+            color: var(--b);
+        }
+
+        .H .o {
+            color: transparent;
+            -webkit-text-stroke: 2.5px var(--b);
+        }
+
+        .H .y {
+            color: var(--y);
+            -webkit-text-stroke: 1.5px var(--ink);
+        }
+
+        .body {
+            font-size: clamp(13px, 1.4vw, 15px);
+            color: var(--i2);
+            line-height: 1.75;
+        }
+
+        .cap {
+            font-size: clamp(11px, 1.2vw, 13px);
+            color: var(--i3);
+            line-height: 1.6;
+        }
+
+        /* ═══ LAYOUT GRIDS ═══ */
+        .g2 {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: clamp(10px, 1.5vw, 18px);
+        }
+
+        .g3 {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: clamp(9px, 1.3vw, 14px);
+        }
+
+        .g4 {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: clamp(8px, 1.2vw, 12px);
+        }
+
+        .col2 {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: clamp(16px, 2.5vw, 28px);
+            align-items: start;
+        }
+
+        /* ═══ SURFACE / CARDS ═══ */
+        .card {
+            background: var(--sur);
+            border: 1.5px solid var(--bor);
+            border-radius: 16px;
+            padding: clamp(14px, 2vw, 22px);
+            box-shadow: var(--s1);
+            transition: transform .22s, box-shadow .22s;
+        }
+
+        .card:hover {
+            transform: translateY(-3px);
+            box-shadow: var(--s2);
+        }
+
+        .card-b {
+            background: var(--b);
+            border-color: var(--bd);
+            color: #fff;
+        }
+
+        .card-y {
+            background: var(--y);
+            border-color: #d4ac00;
+            color: var(--ink);
+        }
+
+        /* Glass card effect */
+        .glass {
+            background: rgba(255, 255, 255, .55);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1.5px solid rgba(255, 255, 255, .6);
+            border-radius: 16px;
+            padding: clamp(14px, 2vw, 22px);
+            box-shadow: var(--s1);
+        }
+
+        /* ═══ PILLS ═══ */
+        .pills {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+        }
+
+        .pill {
+            padding: 5px 13px;
+            border-radius: 100px;
+            font-size: 11px;
+            font-weight: 600;
+            background: var(--bl);
+            color: var(--b);
+            border: 1.5px solid var(--bl2);
+            transition: .16s;
+        }
+
+        .pill:hover {
+            background: var(--b);
+            color: #fff;
+        }
+
+        .pill-y {
+            background: var(--yl);
+            color: #7a5f00;
+            border-color: rgba(245, 200, 0, .3);
+        }
+
+        /* ═══ CALLOUTS ═══ */
+        .cal {
+            padding: clamp(11px, 1.5vw, 16px) clamp(14px, 2vw, 20px);
+            border-radius: 12px;
+            border-left: 3px solid var(--b);
+            background: var(--bl);
+            font-size: clamp(12px, 1.3vw, 14px);
+            color: var(--i2);
+            line-height: 1.65;
+        }
+
+        .cal-y {
+            border-left-color: var(--y);
+            background: var(--yl);
+            color: #5a4800;
+        }
+
+        .cal-r {
+            border-left-color: #e84040;
+            background: rgba(232, 64, 64, .06);
+            color: #8a0000;
+        }
+
+        /* ═══ TABLE ═══ */
+        .tw {
+            border-radius: 14px;
+            border: 1.5px solid var(--bor);
+            overflow: hidden;
+            box-shadow: var(--s1);
+        }
+
+        .tbl {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: clamp(10px, 1.2vw, 13px);
+        }
+
+        .tbl th {
+            padding: clamp(8px, 1.2vw, 12px) clamp(10px, 1.5vw, 14px);
+            background: var(--b);
+            color: #fff;
+            font-weight: 700;
+            font-size: 10px;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            text-align: left;
+        }
+
+        .tbl td {
+            padding: clamp(8px, 1.2vw, 11px) clamp(10px, 1.5vw, 14px);
+            border-bottom: 1px solid var(--bor);
+            color: var(--i2);
+            vertical-align: top;
+            line-height: 1.5;
+        }
+
+        .tbl td:first-child {
+            font-weight: 700;
+            color: var(--ink);
+            white-space: nowrap;
+        }
+
+        .tbl tr:hover td {
+            background: var(--bl);
+        }
+
+        .tbl tr:last-child td {
+            border-bottom: none;
+        }
+
+        /* ═══ DATA TABLE (slides) ═══ */
+        .data-tbl {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: clamp(11px, 1.2vw, 13px);
+            table-layout: fixed;
+        }
+
+        .data-tbl thead tr {
+            display: table-row;
+        }
+
+        .data-tbl th {
+            padding: clamp(9px, 1.3vw, 13px) clamp(11px, 1.6vw, 16px);
+            background: var(--b);
+            color: #fff;
+            font-weight: 700;
+            font-size: clamp(9px, 1vw, 11px);
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            text-align: left;
+            border: none;
+        }
+
+        .data-tbl td {
+            padding: clamp(9px, 1.3vw, 12px) clamp(11px, 1.6vw, 16px);
+            border-bottom: 1px solid var(--bor);
+            color: var(--i2);
+            vertical-align: top;
+            line-height: 1.55;
+            word-break: break-word;
+        }
+
+        .data-tbl td:first-child {
+            font-weight: 700;
+            color: var(--ink);
+        }
+
+        .data-tbl tr:hover td {
+            background: var(--bl);
+        }
+
+        .data-tbl tr:last-child td {
+            border-bottom: none;
+        }
+
+        @media(max-width:600px) {
+
+            .data-tbl,
+            .data-tbl thead,
+            .data-tbl tbody,
+            .data-tbl th,
+            .data-tbl td,
+            .data-tbl tr {
+                display: block;
+            }
+
+            .data-tbl thead {
+                display: none;
+            }
+
+            .data-tbl td {
+                padding: 8px 12px;
+                border-bottom: none;
+                border-top: 1px solid var(--bor);
+            }
+
+            .data-tbl td:first-child {
+                background: var(--bl);
+                color: var(--b);
+                font-size: 9px;
+                letter-spacing: 1.5px;
+                text-transform: uppercase;
+                border-top: none;
+                padding-top: 12px;
+            }
+
+            .data-tbl tr {
+                border: 1.5px solid var(--bor);
+                border-radius: 10px;
+                margin-bottom: 10px;
+                overflow: hidden;
+                background: var(--sur);
+            }
+        }
+
+        /* ═══ STATS ═══ */
+        .stats {
+            display: flex;
+            gap: clamp(8px, 1.2vw, 12px);
+            flex-wrap: wrap;
+        }
+
+        .stat {
+            flex: 1;
+            min-width: 80px;
+            background: var(--sur);
+            border: 1.5px solid var(--bor);
+            border-radius: 12px;
+            padding: clamp(10px, 1.5vw, 16px);
+            text-align: center;
+            box-shadow: var(--s1);
+        }
+
+        .stat-n {
+            font-family: var(--H);
+            font-weight: 900;
+            font-size: clamp(28px, 4vw, 44px);
+            color: var(--b);
+            line-height: 1;
+        }
+
+        .stat-l {
+            font-size: 9px;
+            color: var(--i3);
+            font-weight: 700;
+            margin-top: 2px;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+
+        /* ═══ CHECKLIST ═══ */
+        .chk {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .chk li {
+            display: flex;
+            align-items: flex-start;
+            gap: 9px;
+            font-size: clamp(12px, 1.3vw, 13px);
+            color: var(--i2);
+            line-height: 1.55;
+        }
+
+        .chk-ic {
+            width: 18px;
+            height: 18px;
+            border-radius: 5px;
+            background: var(--b);
+            flex-shrink: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-top: 1px;
+        }
+
+        /* ═══ TIMELINE ═══ */
+        .tl {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .tl-r {
+            display: flex;
+            gap: 12px;
+            padding: 10px 0;
+            border-bottom: 1px solid var(--bor);
+        }
+
+        .tl-r:last-child {
+            border-bottom: none;
+        }
+
+        .tl-n {
+            font-family: var(--H);
+            font-weight: 900;
+            font-size: clamp(22px, 3vw, 30px);
+            color: var(--b);
+            line-height: 1;
+            min-width: 36px;
+        }
+
+        .tl-t {
+            font-weight: 700;
+            font-size: clamp(12px, 1.3vw, 13px);
+            color: var(--ink);
+            margin-bottom: 2px;
+        }
+
+        .tl-d {
+            font-size: clamp(11px, 1.1vw, 12px);
+            color: var(--i3);
+            line-height: 1.5;
+        }
+
+        /* ═══ INFO ITEMS ═══ */
+        .ii {
+            padding: clamp(9px, 1.3vw, 12px) clamp(11px, 1.5vw, 15px);
+            border-radius: 11px;
+            background: var(--sur);
+            border: 1.5px solid var(--bor);
+            font-size: clamp(11px, 1.2vw, 13px);
+            color: var(--i2);
+            line-height: 1.6;
+            transition: .18s;
+        }
+
+        .ii:hover {
+            border-color: var(--b);
+        }
+
+        .ii strong {
+            display: block;
+            font-size: 9px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: var(--b);
+            margin-bottom: 2px;
+        }
+
+        /* ═══ TYPE CARDS ═══ */
+        .tc {
+            background: var(--sur);
+            border: 1.5px solid var(--bor);
+            border-radius: 14px;
+            padding: clamp(13px, 1.8vw, 18px);
+            box-shadow: var(--s1);
+            transition: transform .2s, border-color .2s, box-shadow .2s;
+        }
+
+        .tc:hover {
+            transform: translateY(-4px);
+            border-color: var(--b);
+            box-shadow: var(--s2);
+        }
+
+        .tc-ic {
+            width: 36px;
+            height: 36px;
+            border-radius: 10px;
+            background: var(--bl);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 10px;
+        }
+
+        .tc-t {
+            font-weight: 700;
+            font-size: clamp(12px, 1.3vw, 14px);
+            color: var(--ink);
+            margin-bottom: 4px;
+        }
+
+        .tc-d {
+            font-size: clamp(10px, 1.1vw, 12px);
+            color: var(--i3);
+            line-height: 1.55;
+        }
+
+        /* ═══ MEMBER CARDS ═══ */
+        .mc {
+            background: var(--sur);
+            border: 1.5px solid var(--bor);
+            border-radius: 18px;
+            padding: clamp(18px, 2.5vw, 26px) clamp(12px, 2vw, 18px);
+            text-align: center;
+            box-shadow: var(--s1);
+            transition: transform .28s, box-shadow .28s;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .mc::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, var(--b), var(--y));
+            transform: scaleX(0);
+            transition: .28s;
+            transform-origin: left;
+        }
+
+        .mc:hover {
+            transform: translateY(-6px);
+            box-shadow: var(--s2);
+        }
+
+        .mc:hover::before {
+            transform: scaleX(1);
+        }
+
+        .mc-av {
+            width: clamp(44px, 6vw, 56px);
+            height: clamp(44px, 6vw, 56px);
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--b), var(--y));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: var(--H);
+            font-weight: 900;
+            font-size: clamp(18px, 2.5vw, 24px);
+            color: #fff;
+            margin: 0 auto 10px;
+        }
+
+        .mc-n {
+            font-weight: 700;
+            font-size: clamp(15px, 2vw, 19px);
+            color: var(--ink);
+            margin-bottom: 2px;
+        }
+
+        .mc-r {
+            font-size: 9px;
+            color: var(--i3);
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+
+        /* ═══ CVL (Copyright vs Copyleft) ═══ */
+        .cvl {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: clamp(10px, 1.5vw, 14px);
+        }
+
+        .cvl-c {
+            border-radius: 14px;
+            padding: clamp(16px, 2vw, 22px);
+            border: 2px solid rgba(23, 64, 232, .16);
+            background: var(--bl);
+        }
+
+        .cvl-l {
+            border-radius: 14px;
+            padding: clamp(16px, 2vw, 22px);
+            border: 2px solid rgba(180, 90, 0, .16);
+            background: var(--yl);
+        }
+
+        .cvl-h {
+            font-family: var(--H);
+            font-weight: 900;
+            font-size: clamp(22px, 3vw, 30px);
+            text-transform: uppercase;
+            margin-bottom: 12px;
+        }
+
+        .dot-b {
+            width: 5px;
+            height: 5px;
+            border-radius: 50%;
+            background: var(--b);
+            flex-shrink: 0;
+            margin-top: 5px;
+        }
+
+        .dot-y {
+            width: 5px;
+            height: 5px;
+            border-radius: 50%;
+            background: #b56400;
+            flex-shrink: 0;
+            margin-top: 5px;
+        }
+
+        .cvl-ul {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 7px;
+        }
+
+        .cvl-ul li {
+            display: flex;
+            align-items: flex-start;
+            gap: 7px;
+            font-size: clamp(11px, 1.2vw, 13px);
+            color: var(--i2);
+            line-height: 1.5;
+        }
+
+        /* ═══ BRAND COMPARE ═══ */
+        .bcp {
+            display: grid;
+            grid-template-columns: 1fr 44px 1fr;
+            gap: clamp(8px, 1.2vw, 12px);
+            align-items: center;
+        }
+
+        .bc-box {
+            background: var(--sur);
+            border: 2px solid var(--bor);
+            border-radius: 14px;
+            padding: clamp(14px, 2vw, 20px);
+            text-align: center;
+            box-shadow: var(--s1);
+        }
+
+        .bc-tag {
+            font-size: 9px;
+            font-weight: 700;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            padding: 3px 10px;
+            border-radius: 100px;
+            display: inline-block;
+            margin-bottom: 8px;
+        }
+
+        .bc-orig {
+            background: var(--bl);
+            color: var(--b);
+        }
+
+        .bc-para {
+            background: var(--yl);
+            color: #7a5f00;
+        }
+
+        .bc-nm {
+            font-family: var(--H);
+            font-weight: 900;
+            text-transform: uppercase;
+            font-size: clamp(24px, 4vw, 40px);
+            line-height: 1;
+            margin-bottom: 4px;
+        }
+
+        .bc-d {
+            font-size: clamp(10px, 1.1vw, 12px);
+            color: var(--i3);
+            line-height: 1.5;
+        }
+
+        .vs-c {
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            background: var(--y);
+            flex-shrink: 0;
+            font-family: var(--H);
+            font-weight: 900;
+            font-size: 14px;
+            color: var(--ink);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* ═══ HERO TITLE ═══ */
+        .hero-pill {
+            display: inline-flex;
+            align-items: center;
+            gap: 7px;
+            border: 2px solid var(--b);
+            border-radius: 100px;
+            padding: 6px 16px;
+            font-size: 10px;
+            font-weight: 700;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: var(--b);
+            background: var(--sur);
+            margin-bottom: clamp(14px, 2.5vw, 22px);
+        }
+
+        .hero-h {
+            font-family: var(--H);
+            font-weight: 900;
+            text-transform: uppercase;
+            font-size: clamp(54px, 12vw, 140px);
+            line-height: .84;
+            letter-spacing: -2px;
+        }
+
+        .hero-h .fill {
+            color: var(--b);
+        }
+
+        .hero-h .out {
+            color: transparent;
+            -webkit-text-stroke: 3px var(--b);
+        }
+
+        /* ═══ HOOK CARDS ═══ */
+        .hk-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: clamp(10px, 1.5vw, 14px);
+        }
+
+        .hk {
+            background: var(--sur);
+            border: 1.5px solid var(--bor);
+            border-radius: 14px;
+            padding: clamp(14px, 2vw, 20px);
+            box-shadow: var(--s1);
+            transition: transform .22s, box-shadow .22s;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hk::after {
+            content: '';
+            position: absolute;
+            inset-x: 0;
+            top: 0;
+            height: 3px;
+            background: linear-gradient(90deg, var(--b), var(--y));
+            transform: scaleX(0);
+            transition: .28s;
+            transform-origin: left;
+        }
+
+        .hk:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--s2);
+        }
+
+        .hk:hover::after {
+            transform: scaleX(1);
+        }
+
+        .hk-q {
+            font-weight: 700;
+            font-size: clamp(12px, 1.4vw, 14px);
+            color: var(--b);
+            margin-bottom: 6px;
+            line-height: 1.35;
+        }
+
+        .hk-a {
+            font-size: clamp(11px, 1.2vw, 12px);
+            color: var(--i3);
+            line-height: 1.6;
+        }
+
+        /* ═══ OBJECTIVES ═══ */
+        .obj-l {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .obj-i {
+            display: flex;
+            align-items: flex-start;
+            gap: clamp(10px, 1.5vw, 14px);
+            background: var(--sur);
+            border: 1.5px solid var(--bor);
+            border-radius: 12px;
+            padding: clamp(12px, 1.8vw, 16px) clamp(14px, 2vw, 18px);
+            box-shadow: var(--s1);
+            transition: transform .2s, border-color .2s;
+        }
+
+        .obj-i:hover {
+            border-color: var(--b);
+            transform: translateX(4px);
+        }
+
+        .obj-n {
+            font-family: var(--H);
+            font-weight: 900;
+            font-size: clamp(24px, 3.5vw, 32px);
+            color: var(--b);
+            line-height: 1;
+            min-width: 36px;
+        }
+
+        .obj-t {
+            font-size: clamp(12px, 1.3vw, 13px);
+            color: var(--i2);
+            line-height: 1.55;
+            padding-top: 2px;
+        }
+
+        .obj-t b {
+            color: var(--ink);
+            display: block;
+            font-weight: 700;
+            margin-bottom: 1px;
+            font-size: clamp(12px, 1.3vw, 14px);
+        }
+
+        /* ═══ FAIR USE CARDS ═══ */
+        .fu {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: clamp(8px, 1.2vw, 11px);
+        }
+
+        .fu-c {
+            background: var(--sur);
+            border: 1.5px solid var(--bor);
+            border-radius: 12px;
+            padding: clamp(12px, 1.5vw, 15px);
+            box-shadow: var(--s1);
+        }
+
+        .fu-ic {
+            width: 34px;
+            height: 34px;
+            border-radius: 9px;
+            background: var(--bl);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 8px;
+        }
+
+        .fu-t {
+            font-weight: 700;
+            font-size: clamp(12px, 1.3vw, 13px);
+            color: var(--ink);
+            margin-bottom: 3px;
+        }
+
+        .fu-d {
+            font-size: clamp(10px, 1.1vw, 11px);
+            color: var(--i3);
+            line-height: 1.5;
+        }
+
+        /* ═══ WARN ITEMS ═══ */
+        .wi {
+            background: var(--sur);
+            border: 1.5px solid var(--bor);
+            border-radius: 12px;
+            padding: clamp(11px, 1.5vw, 14px) clamp(13px, 1.8vw, 16px);
+            display: flex;
+            align-items: flex-start;
+            gap: 11px;
+            box-shadow: var(--s1);
+        }
+
+        .wi-ic {
+            width: 38px;
+            height: 38px;
+            border-radius: 10px;
+            flex-shrink: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .wi-t b {
+            display: block;
+            font-size: clamp(12px, 1.3vw, 13px);
+            font-weight: 700;
+            color: var(--ink);
+            margin-bottom: 3px;
+        }
+
+        .wi-t p {
+            font-size: clamp(10px, 1.1vw, 12px);
+            color: var(--i3);
+            line-height: 1.5;
+        }
+
+        .wtag {
+            display: inline-block;
+            padding: 2px 9px;
+            border-radius: 100px;
+            font-size: 9px;
+            font-weight: 700;
+            margin-top: 4px;
+        }
+
+        .wtb {
+            background: var(--bl);
+            color: var(--b);
+        }
+
+        .wtr {
+            background: rgba(232, 64, 64, .1);
+            color: #a00;
+        }
+
+        /* ═══ ACTIVITY / BALLOON ═══ */
+        .act-w {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            width: 100%;
+            padding: clamp(10px, 2vw, 20px) 0;
+        }
+
+        .act-badge {
+            background: var(--y);
+            color: var(--ink);
+            font-family: var(--H);
+            font-weight: 900;
+            font-size: 12px;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            padding: 6px 18px;
+            border-radius: 100px;
+            margin-bottom: 16px;
+            display: inline-block;
+        }
+
+        .bal {
+            display: block;
+            margin: 0 auto 12px;
+            animation: flt 3s ease-in-out infinite;
+        }
+
+        @keyframes flt {
+
+            0%,
+            100% {
+                transform: translateY(0) rotate(-3deg)
+            }
+
+            50% {
+                transform: translateY(-12px) rotate(3deg)
+            }
+        }
+
+        .act-ttl {
+            font-family: var(--H);
+            font-weight: 900;
+            text-transform: uppercase;
+            font-size: clamp(30px, 6vw, 68px);
+            line-height: .9;
+            margin-bottom: 14px;
+        }
+
+        .act-q {
+            background: var(--sur);
+            border: 2px solid var(--b);
+            border-radius: 14px;
+            padding: clamp(16px, 2.5vw, 22px) clamp(18px, 3vw, 28px);
+            max-width: 600px;
+            width: 100%;
+            text-align: left;
+            box-shadow: var(--s1);
+        }
+
+        .act-ql {
+            font-size: 9px;
+            font-weight: 700;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            color: var(--b);
+            margin-bottom: 7px;
+        }
+
+        .act-qt {
+            font-weight: 700;
+            font-size: clamp(13px, 1.5vw, 15px);
+            color: var(--ink);
+            line-height: 1.45;
+            margin-bottom: 11px;
+        }
+
+        .act-opts {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 7px;
+        }
+
+        .act-opts li {
+            display: flex;
+            align-items: center;
+            gap: 9px;
+            font-size: clamp(11px, 1.3vw, 13px);
+            color: var(--i2);
+            padding: 8px 11px;
+            border-radius: 9px;
+            background: var(--bg2);
+            border: 1.5px solid var(--bor);
+        }
+
+        .opt-l {
+            width: 22px;
+            height: 22px;
+            border-radius: 6px;
+            background: var(--b);
+            color: #fff;
+            font-weight: 800;
+            font-size: 11px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .act-ans {
+            margin-top: 11px;
+            padding: 10px 13px;
+            border-radius: 9px;
+            background: rgba(26, 158, 92, .09);
+            border: 1.5px solid rgba(26, 158, 92, .2);
+            font-size: clamp(11px, 1.2vw, 12px);
+            color: #1a9e5c;
+            font-weight: 600;
+            display: none;
+        }
+
+        .act-ans.show {
+            display: block;
+        }
+
+        .rev-btn {
+            background: var(--b);
+            color: #fff;
+            border: none;
+            padding: 8px 18px;
+            border-radius: 8px;
+            font-family: var(--I);
+            font-weight: 700;
+            font-size: 12px;
+            cursor: pointer;
+            margin-top: 11px;
+            transition: .16s;
+        }
+
+        .rev-btn:hover {
+            background: var(--bd);
+        }
+
+        /* ═══ NAV ARROWS ═══ */
+        .narr {
+            position: fixed;
+            bottom: clamp(18px, 3vw, 26px);
+            z-index: 700;
+            width: clamp(40px, 5vw, 46px);
+            height: clamp(40px, 5vw, 46px);
+            border-radius: 12px;
+            background: rgba(255, 255, 255, .85);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1.5px solid var(--bor2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: .18s;
+            color: var(--ink);
+            box-shadow: var(--s1);
+        }
+
+        .narr:hover {
+            background: var(--b);
+            color: #fff;
+            border-color: var(--b);
+            box-shadow: 0 4px 20px rgba(23, 64, 232, .3);
+        }
+
+        .narr:disabled {
+            opacity: .25;
+            cursor: not-allowed;
+            pointer-events: none;
+        }
+
+        #nprev {
+            left: calc(50% - 52px);
+        }
+
+        #nnext {
+            left: calc(50% + 8px);
+        }
+
+        #pbar {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            height: 3px;
+            background: linear-gradient(90deg, var(--b), var(--y));
+            transition: width .4s;
+            z-index: 999;
+        }
+
+        /* ═══ DOT NAV ═══ */
+        #dots {
+            position: fixed;
+            right: clamp(8px, 1.5vw, 14px);
+            top: 50%;
+            transform: translateY(-50%);
+            z-index: 700;
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+
+        .dn {
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: var(--bor2);
+            cursor: pointer;
+            transition: .24s;
+            border: 1.5px solid transparent;
+        }
+
+        .dn.on {
+            background: var(--b);
+            height: 20px;
+            border-radius: 3px;
+        }
+
+        /* ═══ QUIZ OVERLAY ═══ */
+        #qov {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(8, 8, 14, .6);
+            z-index: 2000;
+            align-items: center;
+            justify-content: center;
+            padding: clamp(12px, 2vw, 20px);
+            backdrop-filter: blur(18px);
+            -webkit-backdrop-filter: blur(18px);
+        }
+
+        #qov.on {
+            display: flex;
+        }
+
+        .qp {
+            background: var(--sur);
+            border: 1.5px solid var(--bor);
+            border-radius: 22px;
+            width: 100%;
+            max-width: 620px;
+            max-height: 92vh;
+            overflow-y: auto;
+            padding: clamp(24px, 4vw, 40px);
+            position: relative;
+            animation: pop .3s cubic-bezier(.34, 1.56, .64, 1) both;
+            box-shadow: 0 24px 72px rgba(23, 64, 232, .18), 0 0 0 1px rgba(23, 64, 232, .08);
+        }
+
+        @keyframes pop {
+            from {
+                opacity: 0;
+                transform: scale(.86)
+            }
+
+            to {
+                opacity: 1;
+                transform: scale(1)
+            }
+        }
+
+        .qp::-webkit-scrollbar {
+            width: 4px;
+        }
+
+        .qp::-webkit-scrollbar-thumb {
+            background: var(--bl2);
+            border-radius: 4px;
+        }
+
+        .qclose {
+            position: absolute;
+            top: 12px;
+            right: 12px;
+            width: 30px;
+            height: 30px;
+            border-radius: 8px;
+            background: var(--bg2);
+            border: 1.5px solid var(--bor);
+            color: var(--ink);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: .16s;
+        }
+
+        .qclose:hover {
+            background: #e84040;
+            color: #fff;
+            border-color: #e84040;
+        }
+
+        .qs {
+            display: none;
+        }
+
+        .qs.on {
+            display: block;
+        }
+
+        .qt {
+            font-family: var(--H);
+            font-weight: 900;
+            text-transform: uppercase;
+            font-size: clamp(28px, 5vw, 48px);
+            line-height: 1;
+            color: var(--ink);
+            margin-bottom: 8px;
+        }
+
+        .qt span {
+            color: var(--b);
+        }
+
+        .qsub {
+            font-size: clamp(12px, 1.3vw, 14px);
+            color: var(--i3);
+            margin-bottom: 20px;
+            line-height: 1.6;
+        }
+
+        .btn-p {
+            background: var(--b);
+            color: #fff;
+            border: none;
+            padding: 11px 24px;
+            border-radius: 10px;
+            font-family: var(--I);
+            font-weight: 700;
+            font-size: 13px;
+            cursor: pointer;
+            transition: .16s;
+        }
+
+        .btn-p:hover {
+            background: var(--bd);
+            transform: translateY(-1px);
+        }
+
+        .btn-s {
+            background: transparent;
+            color: var(--ink);
+            border: 1.5px solid var(--bor);
+            padding: 11px 24px;
+            border-radius: 10px;
+            font-family: var(--I);
+            font-weight: 600;
+            font-size: 12px;
+            cursor: pointer;
+            transition: .16s;
+        }
+
+        .btn-s:hover {
+            border-color: var(--b);
+            color: var(--b);
+        }
+
+        .gbrow {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 8px;
+            margin-bottom: 16px;
+        }
+
+        .gbtn {
+            padding: 12px 6px;
+            border-radius: 10px;
+            background: var(--bg2);
+            border: 2px solid var(--bor);
+            font-family: var(--H);
+            font-weight: 900;
+            font-size: 22px;
+            color: var(--ink);
+            cursor: pointer;
+            transition: .2s;
+            text-align: center;
+        }
+
+        .gbtn.sel {
+            background: var(--b);
+            color: #fff;
+            border-color: var(--b);
+        }
+
+        .gbtn:hover:not(.sel):not(:disabled) {
+            border-color: var(--b);
+            color: var(--b);
+        }
+
+        .gbtn:disabled {
+            opacity: .3;
+            cursor: not-allowed;
+        }
+
+        .gbl {
+            font-size: 8px;
+            font-weight: 700;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            display: block;
+            margin-top: 1px;
+            opacity: .55;
+        }
+
+        .flbl {
+            font-size: 9px;
+            font-weight: 700;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: var(--i3);
+            margin-bottom: 5px;
+            display: block;
+        }
+
+        .finp {
+            width: 100%;
+            background: var(--bg2);
+            border: 1.5px solid var(--bor);
+            border-radius: 10px;
+            padding: 10px 13px;
+            color: var(--ink);
+            font-family: var(--I);
+            font-size: 14px;
+            outline: none;
+            transition: .16s;
+        }
+
+        .finp:focus {
+            border-color: var(--b);
+            background: #fff;
+        }
+
+        .ferr {
+            color: #e84040;
+            font-size: 11px;
+            margin-bottom: 7px;
+            display: none;
+        }
+
+        .qprogw {
+            height: 3px;
+            background: var(--bg2);
+            border-radius: 100px;
+            margin-bottom: 20px;
+            overflow: hidden;
+        }
+
+        .qprogb {
+            height: 100%;
+            background: linear-gradient(90deg, var(--b), var(--y));
+            border-radius: 100px;
+            transition: width .4s;
+        }
+
+        .qcnt {
+            font-size: 10px;
+            font-weight: 700;
+            letter-spacing: 2.5px;
+            text-transform: uppercase;
+            color: var(--i3);
+            margin-bottom: 7px;
+        }
+
+        .qbdg {
+            display: inline-block;
+            font-size: 9px;
+            font-weight: 700;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            padding: 3px 10px;
+            border-radius: 100px;
+            margin-bottom: 10px;
+        }
+
+        .mc {
+            background: var(--bl);
+            color: var(--b);
+        }
+
+        .tf {
+            background: rgba(245, 200, 0, .18);
+            color: #7a5f00;
+        }
+
+        .fb {
+            background: rgba(0, 160, 80, .1);
+            color: #005a30;
+        }
+
+        .cd {
+            background: rgba(232, 64, 64, .1);
+            color: #900;
+        }
+
+        .qtxt {
+            font-size: clamp(14px, 1.6vw, 16px);
+            font-weight: 700;
+            color: var(--ink);
+            margin-bottom: 14px;
+            line-height: 1.4;
+        }
+
+        .opts {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+
+        .opt {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 10px 14px;
+            border-radius: 10px;
+            border: 1.5px solid var(--bor);
+            background: var(--bg2);
+            cursor: pointer;
+            transition: .16s;
+            font-size: 13px;
+            color: var(--ink);
+        }
+
+        .opt:hover,
+        .opt.sel {
+            border-color: var(--b);
+            background: var(--bl);
+        }
+
+        .opt input[type=radio] {
+            accent-color: var(--b);
+            width: 14px;
+            height: 14px;
+            flex-shrink: 0;
+        }
+
+        .cblk {
+            background: #0d1117;
+            border-radius: 10px;
+            padding: 15px;
+            font-family: var(--M);
+            font-size: 12px;
+            color: #79c0ff;
+            line-height: 1.7;
+            margin-bottom: 11px;
+            overflow-x: auto;
+            border: 1px solid #30363d;
+        }
+
+        .kw {
+            color: #ff7b72;
+        }
+
+        .st {
+            color: #a5d6ff;
+        }
+
+        .qnav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 14px;
+        }
+
+        .req {
+            font-size: 11px;
+            color: #e84040;
+            margin-top: 5px;
+            display: none;
+        }
+
+        /* Results */
+        .sbig {
+            width: 90px;
+            height: 90px;
+            border-radius: 50%;
+            border: 4px solid var(--b);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: var(--H);
+            font-weight: 900;
+            font-size: 30px;
+            color: var(--b);
+            margin: 0 auto 16px;
+            box-shadow: 0 0 28px rgba(23, 64, 232, .16);
+        }
+
+        .rstats {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            margin-bottom: 16px;
+        }
+
+        .rstat {
+            padding: 12px;
+            border-radius: 11px;
+            border: 1.5px solid var(--bor);
+            text-align: center;
+            background: var(--bg2);
+        }
+
+        .rsn {
+            font-family: var(--H);
+            font-weight: 900;
+            font-size: 34px;
+        }
+
+        .rsn.ok {
+            color: #00a050;
+        }
+
+        .rsn.bad {
+            color: #e84040;
+        }
+
+        .rsl {
+            font-size: 9px;
+            color: var(--i3);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            font-weight: 700;
+        }
+
+        .revw {
+            max-height: 220px;
+            overflow-y: auto;
+            border-radius: 10px;
+            border: 1.5px solid var(--bor);
+            margin-bottom: 13px;
+        }
+
+        .rtbl {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 11px;
+        }
+
+        .rtbl th {
+            padding: 7px 10px;
+            background: var(--bg2);
+            color: var(--i3);
+            font-size: 9px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-weight: 700;
+            position: sticky;
+            top: 0;
+        }
+
+        .rtbl td {
+            padding: 8px 10px;
+            border-top: 1px solid var(--bor);
+            vertical-align: top;
+            line-height: 1.4;
+        }
+
+        /* Leaderboard */
+        .podw {
+            display: flex;
+            align-items: flex-end;
+            justify-content: center;
+            gap: 8px;
+            margin: 10px 0 22px;
+        }
+
+        .podcol {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .podcard {
+            width: clamp(96px, 14vw, 120px);
+            border-radius: 13px;
+            padding: 12px 8px;
+            text-align: center;
+            border: 2px solid var(--bor);
+            background: var(--sur);
+            box-shadow: var(--s1);
+            animation: podR .42s cubic-bezier(.34, 1.56, .64, 1) both;
+        }
+
+        @keyframes podR {
+            from {
+                opacity: 0;
+                transform: translateY(24px)
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0)
+            }
+        }
+
+        .pod-av {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--b), var(--y));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: var(--H);
+            font-weight: 900;
+            font-size: 17px;
+            color: #fff;
+            margin: 0 auto 7px;
+        }
+
+        .pod-g {
+            font-family: var(--H);
+            font-weight: 900;
+            font-size: 16px;
+            color: var(--ink);
+        }
+
+        .pod-r {
+            font-size: 9px;
+            color: var(--i3);
+            margin-bottom: 4px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            max-width: 110px;
+        }
+
+        .pod-s {
+            font-family: var(--H);
+            font-weight: 900;
+            font-size: 22px;
+            color: var(--b);
+        }
+
+        .pod-blk {
+            width: 100%;
+            border-radius: 9px 9px 0 0;
+            display: flex;
+            align-items: flex-end;
+            justify-content: center;
+            padding-bottom: 7px;
+        }
+
+        .p1 .pod-blk {
+            height: 68px;
+            background: linear-gradient(180deg, #ffd700, #f5a000);
+        }
+
+        .p2 .pod-blk {
+            height: 50px;
+            background: linear-gradient(180deg, #c8d6e5, #8395a7);
+        }
+
+        .p3 .pod-blk {
+            height: 34px;
+            background: linear-gradient(180deg, #cd9b5b, #9e6b2e);
+        }
+
+        .pod-rnk {
+            font-family: var(--H);
+            font-weight: 900;
+            font-size: 20px;
+            color: rgba(0, 0, 0, .28);
+        }
+
+        .lboth {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+            max-height: 170px;
+            overflow-y: auto;
+        }
+
+        .lbrow {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 10px 13px;
+            border-radius: 10px;
+            background: var(--bg2);
+            border: 1.5px solid var(--bor);
+            animation: fu .3s ease both;
+        }
+
+        @keyframes fu {
+            from {
+                opacity: 0;
+                transform: translateY(8px)
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0)
+            }
+        }
+
+        .lbrn {
+            font-family: var(--H);
+            font-weight: 900;
+            font-size: 19px;
+            color: var(--i3);
+            min-width: 26px;
+        }
+
+        .lbif {
+            flex: 1;
+        }
+
+        .lbg {
+            font-size: 13px;
+            font-weight: 700;
+            color: var(--ink);
+        }
+
+        .lbr {
+            font-size: 10px;
+            color: var(--i3);
+        }
+
+        .lbsc {
+            font-family: var(--H);
+            font-weight: 900;
+            font-size: 22px;
+            color: var(--b);
+        }
+
+        /* ═══ RESPONSIVE BREAKPOINTS ═══ */
+        @media(max-width:820px) {
+
+            .g2,
+            .g3,
+            .g4,
+            .col2,
+            .cvl,
+            .bcp,
+            .hk-grid,
+            .fu {
+                grid-template-columns: 1fr !important;
+            }
+
+            .vs-c {
+                display: none !important;
+            }
+
+            .slide {
+                align-items: flex-start !important;
+                padding-bottom: 70px;
+            }
+        }
+
+        @media(max-width:600px) {
+            :root {
+                --tb: 48px;
+            }
+
+            #dots {
+                display: none;
+            }
+
+            .gbrow {
+                grid-template-columns: repeat(4, 1fr);
+            }
+
+            .podcard {
+                width: 80px;
+            }
+
+            .qp {
+                padding: 18px 14px;
+            }
+
+            .podw {
+                gap: 5px;
+            }
+
+            .g3 {
+                grid-template-columns: 1fr 1fr !important;
+            }
+
+            .g4 {
+                grid-template-columns: 1fr 1fr !important;
+            }
+        }
+
+        @media(max-width:400px) {
+
+            .g3,
+            .g4 {
+                grid-template-columns: 1fr !important;
+            }
+        }
+
+        /* Touch device: enlarge tap targets */
+        @media(hover:none) {
+            .narr {
+                width: 48px;
+                height: 48px;
+            }
+
+            .opt {
+                padding: 13px 14px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- ── TOPBAR ── -->
+    <div id="tb">
+        <div class="tb-l">
+            <div class="tb-dot"></div>
+            <div class="tb-logo">IP<b>.</b>PRES</div>
+            <div class="tb-div"></div>
+            <span id="tbc">01 / 24</span>
+        </div>
+        <div class="tbr">
+            <div class="ib" id="sndbtn" title="Sound">
+                <svg id="sndic" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                    stroke-width="2" stroke-linecap="round">
+                    <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5" />
+                    <path d="M19.07 4.93a10 10 0 0 1 0 14.14" />
+                    <path d="M15.54 8.46a5 5 0 0 1 0 7.07" />
+                </svg>
+            </div>
+            <button id="qbtn" onclick="openQ()">QUIZ</button>
+        </div>
+    </div>
+
+    <!-- ── DECK ── -->
+    <div id="deck">
+
+        <!-- ▓▓ S1: TITLE ▓▓ -->
+        <section class="slide act center" data-i="0">
+            <div class="bg-grid para" data-s=".04" style="position:absolute;inset:0;"></div>
+            <div class="para" data-s=".17"
+                style="position:absolute;top:-10%;right:-8%;width:min(420px,55vw);aspect-ratio:1;border-radius:50%;background:radial-gradient(circle,rgba(245,200,0,.22),transparent 70%);">
+            </div>
+            <div class="para" data-s=".1"
+                style="position:absolute;bottom:-10%;left:-6%;width:min(300px,40vw);aspect-ratio:1;border-radius:50%;background:radial-gradient(circle,rgba(23,64,232,.11),transparent 70%);">
+            </div>
+            <div class="si" style="text-align:center;">
+                <div style="display:flex;justify-content:center;margin-bottom:clamp(14px,2.5vw,22px);">
+                    <div class="hero-pill">
+                        <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2.5">
+                            <circle cx="12" cy="12" r="10" />
+                            <line x1="12" y1="8" x2="12" y2="12" />
+                            <line x1="12" y1="16" x2="12.01" y2="16" />
+                        </svg>
+                        GROUP 4 · 2025
+                    </div>
+                </div>
+                <h1 class="hero-h">
+                    <span style="color:var(--ink)">INTEL</span><span class="out">LECTUAL</span><br>
+                    <span class="fill">PROPERTY</span>
+                </h1>
+                <div class="pills" style="justify-content:center;margin-top:clamp(14px,2vw,20px);">
+                    <div class="pill">Copyright</div>
+                    <div class="pill">Patent</div>
+                    <div class="pill">Trademark</div>
+                    <div class="pill">Plagiarism</div>
+                    <div class="pill">Open Source</div>
+                    <div class="pill">Cybersquatting</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ▓▓ S2: HOOK ▓▓ -->
+        <section class="slide" data-i="1">
+            <div class="bg-dots para" data-s=".05" style="position:absolute;inset:0;"></div>
+            <div class="para" data-s=".14"
+                style="position:absolute;bottom:-8%;right:-6%;width:min(300px,40vw);aspect-ratio:1;border-radius:50%;background:radial-gradient(circle,rgba(245,200,0,.16),transparent 70%);">
+            </div>
+            <div class="si">
+                <div class="lbl">Before We Begin</div>
+                <h2 class="H lg" style="margin-bottom:clamp(14px,2vw,20px);">HAVE YOU<br>EVER<span class="b">…?</span>
+                </h2>
+                <div class="hk-grid">
+                    <div class="hk">
+                        <div class="hk-q"><svg width="14" height="14" viewBox="0 0 24 24" fill="none"
+                                stroke="currentColor" stroke-width="2" style="margin-right:5px;vertical-align:middle;">
+                                <rect x="9" y="9" width="13" height="13" rx="2" />
+                                <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1" />
+                            </svg>Copied code without checking the license?</div>
+                        <div class="hk-a">Used a GitHub repo, font, or library without reading if it was free to use
+                            commercially?</div>
+                    </div>
+                    <div class="hk">
+                        <div class="hk-q"><svg width="14" height="14" viewBox="0 0 24 24" fill="none"
+                                stroke="currentColor" stroke-width="2" style="margin-right:5px;vertical-align:middle;">
+                                <rect x="3" y="3" width="18" height="18" rx="2" />
+                                <circle cx="8.5" cy="8.5" r="1.5" />
+                                <polyline points="21 15 16 10 5 21" />
+                            </svg>Used a Google image without permission?</div>
+                        <div class="hk-a">Grabbed an image from Google Search and used it in a project or presentation?
+                        </div>
+                    </div>
+                    <div class="hk">
+                        <div class="hk-q"><svg width="14" height="14" viewBox="0 0 24 24" fill="none"
+                                stroke="currentColor" stroke-width="2" style="margin-right:5px;vertical-align:middle;">
+                                <circle cx="12" cy="12" r="10" />
+                                <line x1="2" y1="12" x2="22" y2="12" />
+                                <path
+                                    d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z" />
+                            </svg>Named your app like a major brand?</div>
+                        <div class="hk-a">Called your app something similar to Google, Apple, or Facebook? That may be
+                            trademark infringement.</div>
+                    </div>
+                    <div class="hk">
+                        <div class="hk-q"><svg width="14" height="14" viewBox="0 0 24 24" fill="none"
+                                stroke="currentColor" stroke-width="2" style="margin-right:5px;vertical-align:middle;">
+                                <path d="M9 18V5l12-2v13" />
+                                <circle cx="6" cy="18" r="3" />
+                                <circle cx="18" cy="16" r="3" />
+                            </svg>Uploaded music to Facebook &amp; got a warning?</div>
+                        <div class="hk-a">"This video contains copyrighted content." — You've seen it. That's IP law in
+                            action.</div>
+                    </div>
+                </div>
+                <div class="cal" style="margin-top:14px;">These are all <strong>Intellectual Property issues</strong> —
+                    after this presentation, you'll know exactly why they matter.</div>
+            </div>
+        </section>
+
+        <!-- ▓▓ S3: OBJECTIVES ▓▓ -->
+        <section class="slide" data-i="2">
+            <div class="bg-grid para" data-s=".04" style="position:absolute;inset:0;"></div>
+            <div class="para" data-s=".12"
+                style="position:absolute;top:-8%;right:-6%;width:min(280px,38vw);aspect-ratio:1;border-radius:50%;background:radial-gradient(circle,rgba(23,64,232,.07),transparent 70%);">
+            </div>
+            <div class="si">
+                <div class="lbl">Slide 03 · Learning Goals</div>
+                <h2 class="H lg" style="margin-bottom:clamp(10px,1.5vw,14px);">OBJECTIVES</h2>
+                <div class="obj-l">
+                    <div class="obj-i">
+                        <div class="obj-n">01</div>
+                        <div class="obj-t"><b>Understand the three core IP types</b>Define Copyright, Patent, and
+                            Trademark — their purposes, durations, and requirements.</div>
+                    </div>
+                    <div class="obj-i">
+                        <div class="obj-n">02</div>
+                        <div class="obj-t"><b>Identify all 7 forms of Plagiarism</b>Recognize each form and understand
+                            consequences in academic and professional settings.</div>
+                    </div>
+                    <div class="obj-i">
+                        <div class="obj-n">03</div>
+                        <div class="obj-t"><b>Evaluate Open Source Licensing</b>Distinguish MIT, GPL, and Apache
+                            licenses and correctly apply the Copyleft principle.</div>
+                    </div>
+                    <div class="obj-i">
+                        <div class="obj-n">04</div>
+                        <div class="obj-t"><b>Analyze IP Violations</b>Identify real-world cases of trademark
+                            infringement, cybersquatting, and copyright abuse.</div>
+                    </div>
+                    <div class="obj-i">
+                        <div class="obj-n">05</div>
+                        <div class="obj-t"><b>Apply Ethical IP Practices</b>Build responsible habits for digital
+                            content, software, and creative works as future IT professionals.</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ▓▓ S4: WHAT IS IP ▓▓ -->
+        <section class="slide" data-i="3">
+            <div class="bg-dots para" data-s=".05" style="position:absolute;inset:0;"></div>
+            <div class="para" data-s=".14"
+                style="position:absolute;bottom:-8%;left:-5%;width:min(320px,44vw);aspect-ratio:1;border-radius:50%;background:radial-gradient(circle,rgba(245,200,0,.14),transparent 70%);">
+            </div>
+            <div class="si">
+                <div class="lbl">Slide 04 · Introduction</div>
+                <h2 class="H lg" style="margin-bottom:clamp(12px,1.8vw,18px);">WHAT IS <span class="b">IP?</span></h2>
+                <div class="col2">
+                    <div>
+                        <p class="body">Intellectual Property (IP) refers to <strong>legal rights granted over creations
+                                of the mind</strong> — inventions, literary and artistic works, designs, symbols, names,
+                            images, and software.</p>
+                        <div class="cal" style="margin-top:12px;">IP protection ensures creators can <strong>control and
+                                benefit</strong> from their innovations while promoting economic growth and
+                            technological advancement.</div>
+                        <div class="stats" style="margin-top:12px;">
+                            <div class="stat">
+                                <div class="stat-n">3</div>
+                                <div class="stat-l">Core Types</div>
+                            </div>
+                            <div class="stat">
+                                <div class="stat-n">20</div>
+                                <div class="stat-l">Patent Yrs</div>
+                            </div>
+                            <div class="stat">
+                                <div class="stat-n">+70</div>
+                                <div class="stat-l">Copyright Yrs</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div style="display:flex;flex-direction:column;gap:7px;">
+                        <div class="ii"><strong>Who It Covers</strong>Inventors, authors, artists, developers,
+                            designers, and organizations.</div>
+                        <div class="ii"><strong>Why It Matters</strong>Promotes innovation, protects competitive
+                            advantage, attracts investors.</div>
+                        <div class="ii"><strong>In IT</strong>Every line of code, app name, UI design, and software
+                            patent is governed by IP law.</div>
+                        <div class="ii"><strong>Core Framework</strong>Copyright (C), Patent (P), Trademark (T) — the
+                            CPT Framework.</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ▓▓ S5: COPYRIGHT ▓▓ -->
+        <section class="slide" data-i="4">
+            <div class="bg-grid para" data-s=".04" style="position:absolute;inset:0;"></div>
+            <div class="para" data-s=".16"
+                style="position:absolute;bottom:-6%;right:-4%;width:min(260px,35vw);aspect-ratio:1;border-radius:50%;background:radial-gradient(circle,rgba(23,64,232,.08),transparent 70%);">
+            </div>
+            <div class="si">
+                <div class="lbl">Slide 05 · C · P · T — Type 1</div>
+                <div style="display:flex;align-items:center;gap:11px;margin-bottom:12px;">
+                    <div
+                        style="width:46px;height:46px;border-radius:12px;background:var(--b);display:flex;align-items:center;justify-content:center;flex-shrink:0;">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2">
+                            <circle cx="12" cy="12" r="10" />
+                            <path d="M14.31 8a4 4 0 1 0 0 8H12" />
+                        </svg></div>
+                    <h2 class="H md" style="color:var(--b);">Copyright</h2>
+                </div>
+                <div class="col2">
+                    <div>
+                        <p class="body" style="font-size:clamp(12px,1.3vw,14px);">Protects original works of authorship.
+                            <strong>Automatic upon creation</strong> — no registration needed. Covers
+                            <em>expression</em> of ideas, not the ideas themselves.</p>
+                        <div class="pills" style="margin-top:10px;">
+                            <div class="pill">Source Code</div>
+                            <div class="pill">Books</div>
+                            <div class="pill">Music</div>
+                            <div class="pill">Design</div>
+                            <div class="pill">Websites</div>
+                        </div>
+                        <div class="cal" style="margin-top:10px;">Cheap, easy to obtain, lasts a long time. Allows fair
+                            dealing of IP.</div>
+                        <div class="cal-y cal" style="margin-top:8px;"><strong>Duration:</strong> Life of author + 70
+                            years &nbsp;·&nbsp; <strong>Cost:</strong> Free</div>
+                    </div>
+                    <div>
+                        <p
+                            style="font-size:9px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--i3);margin-bottom:8px;">
+                            KEY FACTS</p>
+                        <ul class="chk">
+                            <li>
+                                <div class="chk-ic"><svg width="9" height="9" viewBox="0 0 12 12" fill="none">
+                                        <polyline points="1,6 4,9 11,3" stroke="white" stroke-width="2.2"
+                                            stroke-linecap="round" />
+                                    </svg></div>Automatic — no registration required
+                            </li>
+                            <li>
+                                <div class="chk-ic"><svg width="9" height="9" viewBox="0 0 12 12" fill="none">
+                                        <polyline points="1,6 4,9 11,3" stroke="white" stroke-width="2.2"
+                                            stroke-linecap="round" />
+                                    </svg></div>Protects expression, not underlying ideas
+                            </li>
+                            <li>
+                                <div class="chk-ic"><svg width="9" height="9" viewBox="0 0 12 12" fill="none">
+                                        <polyline points="1,6 4,9 11,3" stroke="white" stroke-width="2.2"
+                                            stroke-linecap="round" />
+                                    </svg></div>Allows fair dealing of intellectual property
+                            </li>
+                            <li>
+                                <div class="chk-ic"><svg width="9" height="9" viewBox="0 0 12 12" fill="none">
+                                        <polyline points="1,6 4,9 11,3" stroke="white" stroke-width="2.2"
+                                            stroke-linecap="round" />
+                                    </svg></div>In IT: copying code without permission = infringement
+                            </li>
+                            <li>
+                                <div class="chk-ic"><svg width="9" height="9" viewBox="0 0 12 12" fill="none">
+                                        <polyline points="1,6 4,9 11,3" stroke="white" stroke-width="2.2"
+                                            stroke-linecap="round" />
+                                    </svg></div>International protection via the Berne Convention
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ▓▓ S6: PATENT ▓▓ -->
+        <section class="slide" data-i="5">
+            <div class="bg-dots para" data-s=".05" style="position:absolute;inset:0;"></div>
+            <div class="para" data-s=".13"
+                style="position:absolute;top:-6%;right:-4%;width:min(280px,38vw);aspect-ratio:1;border-radius:50%;background:radial-gradient(circle,rgba(245,200,0,.15),transparent 70%);">
+            </div>
+            <div class="si">
+                <div class="lbl">Slide 06 · C · P · T — Type 2</div>
+                <div style="display:flex;align-items:center;gap:11px;margin-bottom:12px;">
+                    <div
+                        style="width:46px;height:46px;border-radius:12px;background:var(--b);display:flex;align-items:center;justify-content:center;flex-shrink:0;">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2">
+                            <circle cx="12" cy="12" r="3" />
+                            <path d="M6.3 6.3a8 8 0 1 0 11.4 0" />
+                            <line x1="12" y1="2" x2="12" y2="12" />
+                        </svg></div>
+                    <h2 class="H md" style="color:var(--b);">Patent</h2>
+                </div>
+                <div class="col2">
+                    <div>
+                        <p class="body" style="font-size:clamp(12px,1.3vw,14px);">Protects inventions or technical
+                            solutions, granting exclusive rights. Expensive and difficult to obtain — but allows
+                            licensing to other developers.</p>
+                        <div class="cal-y cal" style="margin-top:10px;"><strong>Requirements:</strong> Novelty ·
+                            Non-obviousness · Industrial Applicability · Registration
+                            required<br><strong>Duration:</strong> ~20 years in Canada &amp; USA</div>
+                    </div>
+                    <div>
+                        <p
+                            style="font-size:9px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--i3);margin-bottom:8px;">
+                            TYPES OF PATENTS</p>
+                        <div class="tl">
+                            <div class="tl-r">
+                                <div class="tl-n">U</div>
+                                <div>
+                                    <div class="tl-t">Utility Patents</div>
+                                    <div class="tl-d">Protect new processes, machines, articles of manufacture, or
+                                        compositions of matter.</div>
+                                </div>
+                            </div>
+                            <div class="tl-r">
+                                <div class="tl-n">D</div>
+                                <div>
+                                    <div class="tl-t">Design Patents</div>
+                                    <div class="tl-d">Protect the ornamental or aesthetic design of a functional
+                                        product.</div>
+                                </div>
+                            </div>
+                            <div class="tl-r">
+                                <div class="tl-n">P</div>
+                                <div>
+                                    <div class="tl-t">Plant Patents</div>
+                                    <div class="tl-d">Protect new and distinct varieties of asexually reproduced plants.
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ▓▓ S7: TRADEMARK ▓▓ -->
+        <section class="slide" data-i="6">
+            <div class="bg-grid para" data-s=".04" style="position:absolute;inset:0;"></div>
+            <div class="para" data-s=".14"
+                style="position:absolute;bottom:-6%;left:-4%;width:min(270px,36vw);aspect-ratio:1;border-radius:50%;background:radial-gradient(circle,rgba(245,200,0,.17),transparent 70%);">
+            </div>
+            <div class="si">
+                <div class="lbl">Slide 07 · C · P · T — Type 3</div>
+                <div style="display:flex;align-items:center;gap:11px;margin-bottom:12px;">
+                    <div
+                        style="width:46px;height:46px;border-radius:12px;background:var(--b);display:flex;align-items:center;justify-content:center;flex-shrink:0;">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2">
+                            <path d="M12 2L2 7l10 5 10-5-10-5z" />
+                            <path d="M2 17l10 5 10-5" />
+                            <path d="M2 12l10 5 10-5" />
+                        </svg></div>
+                    <h2 class="H md" style="color:var(--b);">Trademark</h2>
+                </div>
+                <div class="col2">
+                    <div>
+                        <p class="body" style="font-size:clamp(12px,1.3vw,14px);">Protects brand identifiers — names,
+                            logos, slogans, product names, and symbols. Prevents consumer confusion and protects brand
+                            identity.</p>
+                        <div class="pills" style="margin-top:10px;">
+                            <div class="pill">Business Names</div>
+                            <div class="pill">Logos</div>
+                            <div class="pill">Slogans</div>
+                            <div class="pill">Symbols</div>
+                        </div>
+                        <div class="cal" style="margin-top:10px;">Trademarks can last <strong>indefinitely</strong> as
+                            long as they remain in active use and registration is maintained.</div>
+                    </div>
+                    <div>
+                        <p
+                            style="font-size:9px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--b);margin-bottom:8px;">
+                            KEY FACTS</p>
+                        <ul class="chk">
+                            <li>
+                                <div class="chk-ic"><svg width="9" height="9" viewBox="0 0 12 12" fill="none">
+                                        <polyline points="1,6 4,9 11,3" stroke="white" stroke-width="2.2"
+                                            stroke-linecap="round" />
+                                    </svg></div>Prevents consumer confusion in the market
+                            </li>
+                            <li>
+                                <div class="chk-ic"><svg width="9" height="9" viewBox="0 0 12 12" fill="none">
+                                        <polyline points="1,6 4,9 11,3" stroke="white" stroke-width="2.2"
+                                            stroke-linecap="round" />
+                                    </svg></div>Protects brand identity and market reputation
+                            </li>
+                            <li>
+                                <div class="chk-ic"><svg width="9" height="9" viewBox="0 0 12 12" fill="none">
+                                        <polyline points="1,6 4,9 11,3" stroke="white" stroke-width="2.2"
+                                            stroke-linecap="round" />
+                                    </svg></div>Can exist as common law or registered trademark
+                            </li>
+                            <li>
+                                <div class="chk-ic"><svg width="9" height="9" viewBox="0 0 12 12" fill="none">
+                                        <polyline points="1,6 4,9 11,3" stroke="white" stroke-width="2.2"
+                                            stroke-linecap="round" />
+                                    </svg></div>Registration recommended for full legal protection
+                            </li>
+                            <li>
+                                <div class="chk-ic"><svg width="9" height="9" viewBox="0 0 12 12" fill="none">
+                                        <polyline points="1,6 4,9 11,3" stroke="white" stroke-width="2.2"
+                                            stroke-linecap="round" />
+                                    </svg></div>Must conduct clearance search before launch
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ▓▓ S8: CPT COMPARISON TABLE ▓▓ -->
+        <section class="slide" data-i="7">
+            <div class="bg-dots para" data-s=".04" style="position:absolute;inset:0;"></div>
+            <div class="si">
+                <div class="lbl">Slide 08 · Comparison</div>
+                <h2 class="H md" style="margin-bottom:12px;">COPYRIGHT <span class="b">vs</span> PATENT <span
+                        class="b">vs</span> TRADEMARK</h2>
+                <div class="tw">
+                    <table class="data-tbl">
+                        <thead>
+                            <tr>
+                                <th>Category</th>
+                                <th>Copyright</th>
+                                <th>Patent</th>
+                                <th>Trademark</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Protects</td>
+                                <td>Creative works</td>
+                                <td>Inventions</td>
+                                <td>Brand identity</td>
+                            </tr>
+                            <tr>
+                                <td>Duration</td>
+                                <td>Life + 70 yrs</td>
+                                <td>~20 years</td>
+                                <td>Indefinite</td>
+                            </tr>
+                            <tr>
+                                <td>Registration</td>
+                                <td>Automatic / Free</td>
+                                <td>Required / Expensive</td>
+                                <td>Recommended</td>
+                            </tr>
+                            <tr>
+                                <td>Examples</td>
+                                <td>Code, art, music</td>
+                                <td>Algorithms, hardware</td>
+                                <td>Logos, app names</td>
+                            </tr>
+                            <tr>
+                                <td>In IT</td>
+                                <td>Source code, UI</td>
+                                <td>Software patents</td>
+                                <td>App names, logos</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="cal" style="margin-top:12px;"><strong>Should software be Copyrighted or Patented?</strong>
+                    Copyright protects the code expression (cheap, automatic). Patent protects the invention/algorithm
+                    (expensive, 20 yrs). Most companies use both.</div>
+            </div>
+        </section>
+
+        <!-- ▓▓ S9: FAIR USE ▓▓ -->
+        <section class="slide" data-i="8">
+            <div class="bg-grid para" data-s=".04" style="position:absolute;inset:0;"></div>
+            <div class="para" data-s=".12"
+                style="position:absolute;top:-6%;right:-4%;width:min(260px,35vw);aspect-ratio:1;border-radius:50%;background:radial-gradient(circle,rgba(23,64,232,.07),transparent 70%);">
+            </div>
+            <div class="si">
+                <div class="lbl">Slide 09 · Fair Use &amp; Copyright Warnings</div>
+                <h2 class="H lg" style="margin-bottom:clamp(10px,1.5vw,14px);">FAIR <span class="b">USE</span></h2>
+                <div class="col2">
+                    <div>
+                        <p class="body" style="font-size:clamp(12px,1.3vw,14px);">Fair Use allows use of copyrighted
+                            material <strong>without permission</strong> under specific conditions — commentary,
+                            criticism, education, or parody.</p>
+                        <div class="fu" style="margin-top:12px;">
+                            <div class="fu-c">
+                                <div class="fu-ic"><svg width="17" height="17" viewBox="0 0 24 24" fill="none"
+                                        stroke="var(--b)" stroke-width="2">
+                                        <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z" />
+                                        <path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z" />
+                                    </svg></div>
+                                <div class="fu-t">Education</div>
+                                <div class="fu-d">Teaching, research, and academic study.</div>
+                            </div>
+                            <div class="fu-c">
+                                <div class="fu-ic"><svg width="17" height="17" viewBox="0 0 24 24" fill="none"
+                                        stroke="var(--b)" stroke-width="2">
+                                        <circle cx="12" cy="12" r="10" />
+                                        <line x1="12" y1="8" x2="12" y2="12" />
+                                        <line x1="12" y1="16" x2="12.01" y2="16" />
+                                    </svg></div>
+                                <div class="fu-t">Commentary</div>
+                                <div class="fu-d">Critiquing or commenting on a work.</div>
+                            </div>
+                            <div class="fu-c">
+                                <div class="fu-ic"><svg width="17" height="17" viewBox="0 0 24 24" fill="none"
+                                        stroke="var(--b)" stroke-width="2">
+                                        <path
+                                            d="M14.5 10c-.83 0-1.5-.67-1.5-1.5v-5c0-.83.67-1.5 1.5-1.5s1.5.67 1.5 1.5v5c0 .83-.67 1.5-1.5 1.5z" />
+                                        <path
+                                            d="M20.5 10H19V8.5c0-.83.67-1.5 1.5-1.5s1.5.67 1.5 1.5-.67 1.5-1.5 1.5z" />
+                                    </svg></div>
+                                <div class="fu-t">Parody</div>
+                                <div class="fu-d">Imitating a work for comic/satirical effect.</div>
+                            </div>
+                            <div class="fu-c">
+                                <div class="fu-ic"><svg width="17" height="17" viewBox="0 0 24 24" fill="none"
+                                        stroke="var(--b)" stroke-width="2">
+                                        <polyline points="22 12 18 12 15 21 9 3 6 12 2 12" />
+                                    </svg></div>
+                                <div class="fu-t">Research</div>
+                                <div class="fu-d">Non-commercial scholarly analysis.</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div>
+                        <p
+                            style="font-size:9px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--i3);margin-bottom:10px;">
+                            WHY FACEBOOK ADDS COPYRIGHT WARNINGS</p>
+                        <div style="display:flex;flex-direction:column;gap:9px;">
+                            <div class="wi">
+                                <div class="wi-ic" style="background:rgba(66,103,178,.12);"><svg width="18" height="18"
+                                        viewBox="0 0 24 24" fill="none" stroke="#4267b2" stroke-width="2">
+                                        <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z" />
+                                    </svg></div>
+                                <div class="wi-t"><b>Facebook Copyright Warning</b>
+                                    <p>"This video contains copyrighted content" — detected automatically by Content ID.
+                                    </p>
+                                    <div class="wtag wtb">Auto-detected</div>
+                                </div>
+                            </div>
+                            <div class="wi">
+                                <div class="wi-ic" style="background:var(--yl);"><svg width="18" height="18"
+                                        viewBox="0 0 24 24" fill="none" stroke="#b56400" stroke-width="2">
+                                        <path
+                                            d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z" />
+                                        <line x1="12" y1="9" x2="12" y2="13" />
+                                        <line x1="12" y1="17" x2="12.01" y2="17" />
+                                    </svg></div>
+                                <div class="wi-t"><b>"For Academic Purposes Only"</b>
+                                    <p>This caption does <strong>NOT</strong> legally protect you. Only actual Fair Use
+                                        provides a legal defense.</p>
+                                    <div class="wtag wtr">Not a legal defense</div>
+                                </div>
+                            </div>
+                            <div class="cal-y cal">If using a song in a school project, that <strong>may</strong>
+                                qualify as Fair Use. Uploading a full track "for fun" does not.</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ▓▓ S10: COPYRIGHT VS COPYLEFT ▓▓ -->
+        <section class="slide" data-i="9">
+            <div class="bg-dots para" data-s=".05" style="position:absolute;inset:0;"></div>
+            <div class="para" data-s=".12"
+                style="position:absolute;top:-6%;right:-4%;width:min(260px,35vw);aspect-ratio:1;border-radius:50%;background:radial-gradient(circle,rgba(245,200,0,.14),transparent 70%);">
+            </div>
+            <div class="si">
+                <div class="lbl">Slide 10 · Key Distinction</div>
+                <h2 class="H lg" style="margin-bottom:clamp(10px,1.5vw,16px);">COPYRIGHT <span
+                        class="y">VS</span><br>COPY<span class="b">LEFT</span></h2>
+                <div class="cvl">
+                    <div class="cvl-c">
+                        <div class="cvl-h" style="color:var(--b);">Copyright</div>
+                        <ul class="cvl-ul">
+                            <li>
+                                <div class="dot-b"></div><span>Creator holds ALL exclusive rights</span>
+                            </li>
+                            <li>
+                                <div class="dot-b"></div><span>Others need permission to use, copy, or distribute</span>
+                            </li>
+                            <li>
+                                <div class="dot-b"></div><span>Default protection — automatic upon creation</span>
+                            </li>
+                            <li>
+                                <div class="dot-b"></div><span>Can be licensed commercially for profit</span>
+                            </li>
+                            <li>
+                                <div class="dot-b"></div><span>Examples: proprietary software, books, films</span>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="cvl-l">
+                        <div class="cvl-h" style="color:#b56400;">Copyleft</div>
+                        <ul class="cvl-ul">
+                            <li>
+                                <div class="dot-y"></div><span>Free to use, modify, and share</span>
+                            </li>
+                            <li>
+                                <div class="dot-y"></div><span>Derivative works MUST remain open under same
+                                    license</span>
+                            </li>
+                            <li>
+                                <div class="dot-y"></div><span>Keeps software permanently free — "share alike"</span>
+                            </li>
+                            <li>
+                                <div class="dot-y"></div><span>Example: GNU General Public License (GPL)</span>
+                            </li>
+                            <li>
+                                <div class="dot-y"></div><span>Freedom with responsibility</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="cal-r cal" style="margin-top:12px;">Using GPL code in a commercial product may legally
+                    require you to release your entire codebase as open-source.</div>
+            </div>
+        </section>
+
+        <!-- ▓▓ S11: ACTIVITY 1 ▓▓ -->
+        <section class="slide center" data-i="10">
+            <div class="bg-grid para" data-s=".03" style="position:absolute;inset:0;"></div>
+            <div class="para" data-s=".14"
+                style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:min(360px,50vw);aspect-ratio:1;border-radius:50%;background:radial-gradient(circle,rgba(245,200,0,.22),transparent 70%);">
+            </div>
+            <div class="si">
+                <div class="act-w">
+                    <div class="act-badge">★ ACTIVITY 1 — PASS THE BALLOON</div>
+                    <svg class="bal" width="72" height="96" viewBox="0 0 72 96">
+                        <ellipse cx="36" cy="42" rx="30" ry="36" fill="var(--b)" opacity=".9" />
+                        <ellipse cx="28" cy="27" rx="8" ry="9" fill="rgba(255,255,255,.24)" />
+                        <path d="M36 78 Q32 86 36 92 Q40 86 36 78Z" fill="var(--bd)" />
+                        <line x1="36" y1="92" x2="36" y2="95" stroke="var(--i3)" stroke-width="1.5" />
+                    </svg>
+                    <div class="act-ttl">PASS THE<br><span style="color:var(--b);">BALLOON!</span></div>
+                    <div class="act-q">
+                        <div class="act-ql">Question · Open Source Licenses</div>
+                        <div class="act-qt">Which open-source license requires that all modified versions also be
+                            open-source and freely available?</div>
+                        <ul class="act-opts">
+                            <li>
+                                <div class="opt-l">A</div>MIT License
+                            </li>
+                            <li>
+                                <div class="opt-l">B</div>Apache 2.0 License
+                            </li>
+                            <li>
+                                <div class="opt-l">C</div>GNU GPL (General Public License)
+                            </li>
+                            <li>
+                                <div class="opt-l">D</div>BSD License
+                            </li>
+                        </ul>
+                        <div class="act-ans" id="a1"><svg width="11" height="11" viewBox="0 0 24 24" fill="none"
+                                stroke="currentColor" stroke-width="2.5"
+                                style="margin-right:4px;vertical-align:middle;">
+                                <polyline points="20 6 9 17 4 12" />
+                            </svg><strong>Answer: C — GNU GPL</strong> — Copyleft license requiring all derivatives to
+                            also be distributed under GPL.</div>
+                        <button class="rev-btn"
+                            onclick="document.getElementById('a1').classList.add('show');this.style.display='none'">Reveal
+                            Answer</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ▓▓ S12: OPEN SOURCE ▓▓ -->
+        <section class="slide" data-i="11">
+            <div class="bg-dots para" data-s=".05" style="position:absolute;inset:0;"></div>
+            <div class="para" data-s=".12"
+                style="position:absolute;bottom:-6%;right:-4%;width:min(260px,35vw);aspect-ratio:1;border-radius:50%;background:radial-gradient(circle,rgba(0,160,80,.07),transparent 70%);">
+            </div>
+            <div class="si">
+                <div class="lbl">Slide 12 · Open Source</div>
+                <h2 class="H lg" style="margin-bottom:11px;">OPEN <span class="b">SOURCE</span></h2>
+                <p class="body" style="margin-bottom:13px;">Distributed under licenses allowing use, modification, and
+                    redistribution — but <strong>license compliance is mandatory</strong>.</p>
+                <div class="g3">
+                    <div class="tc">
+                        <div class="tc-ic"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="var(--b)"
+                                stroke-width="2">
+                                <circle cx="12" cy="12" r="10" />
+                                <line x1="12" y1="8" x2="12" y2="16" />
+                                <line x1="8" y1="12" x2="16" y2="12" />
+                            </svg></div>
+                        <div class="tc-t">MIT License</div>
+                        <div class="tc-d">Most permissive. Use, modify, redistribute freely. Keep copyright notice.
+                            Commercial use allowed.</div>
+                        <div class="pills" style="margin-top:9px;">
+                            <div class="pill" style="font-size:10px;">Commercial OK</div>
+                        </div>
+                    </div>
+                    <div class="tc">
+                        <div class="tc-ic"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="var(--b)"
+                                stroke-width="2">
+                                <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
+                            </svg></div>
+                        <div class="tc-t">GPL License</div>
+                        <div class="tc-d">Copyleft. Derivatives must also be GPL. Share modifications publicly — "share
+                            alike" philosophy.</div>
+                        <div class="pills" style="margin-top:9px;">
+                            <div class="pill-y pill" style="font-size:10px;">Copyleft</div>
+                        </div>
+                    </div>
+                    <div class="tc">
+                        <div class="tc-ic"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="var(--b)"
+                                stroke-width="2">
+                                <rect x="3" y="3" width="18" height="18" rx="3" />
+                                <path d="M9 12h6M12 9v6" />
+                            </svg></div>
+                        <div class="tc-t">Apache 2.0</div>
+                        <div class="tc-d">Permissive with patent rights grant. Requires NOTICE file. Safe for enterprise
+                            and commercial use.</div>
+                        <div class="pills" style="margin-top:9px;">
+                            <div class="pill" style="font-size:10px;">Patent Rights</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="cal-r cal" style="margin-top:12px;">Using GPL code commercially without releasing source
+                    code is a <strong>legal violation</strong>.</div>
+            </div>
+        </section>
+
+        <!-- ▓▓ S13: WHAT IS PLAGIARISM ▓▓ -->
+        <section class="slide" data-i="12">
+            <div class="bg-grid para" data-s=".04" style="position:absolute;inset:0;"></div>
+            <div class="para" data-s=".13"
+                style="position:absolute;top:-6%;right:-4%;width:min(260px,35vw);aspect-ratio:1;border-radius:50%;background:radial-gradient(circle,rgba(232,64,64,.07),transparent 70%);">
+            </div>
+            <div class="si">
+                <div class="lbl">Slide 13 · Academic Ethics</div>
+                <h2 class="H lg" style="margin-bottom:13px;">WHAT IS <span class="b">PLAGIARISM?</span></h2>
+                <div class="col2">
+                    <div>
+                        <p class="body" style="font-size:clamp(12px,1.3vw,14px);">Plagiarism is the act of
+                            <strong>presenting another person's work, ideas, or expressions as one's own</strong>
+                            without proper acknowledgment. It violates both academic integrity and copyright law.</p>
+                        <div class="cal-r cal" style="margin-top:11px;">In software: copying proprietary code or failing
+                            to acknowledge open-source contributors can lead to serious legal disputes.</div>
+                        <div class="stats" style="margin-top:11px;">
+                            <div class="stat">
+                                <div class="stat-n">7</div>
+                                <div class="stat-l">Forms</div>
+                            </div>
+                            <div class="stat">
+                                <div class="stat-n" style="font-size:clamp(20px,3vw,26px);">Zero</div>
+                                <div class="stat-l">Tolerance</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div>
+                        <p
+                            style="font-size:9px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--i3);margin-bottom:9px;">
+                            CONSEQUENCES</p>
+                        <div class="tl">
+                            <div class="tl-r">
+                                <div class="tl-n" style="font-size:clamp(18px,2.5vw,22px);">AC</div>
+                                <div>
+                                    <div class="tl-t">Academic: Failing Grade</div>
+                                    <div class="tl-d">Immediate zero, suspension, or expulsion.</div>
+                                </div>
+                            </div>
+                            <div class="tl-r">
+                                <div class="tl-n" style="font-size:clamp(18px,2.5vw,22px);">PR</div>
+                                <div>
+                                    <div class="tl-t">Professional: Job Loss</div>
+                                    <div class="tl-d">Termination, legal liability, and blacklisting.</div>
+                                </div>
+                            </div>
+                            <div class="tl-r">
+                                <div class="tl-n" style="font-size:clamp(18px,2.5vw,22px);">LG</div>
+                                <div>
+                                    <div class="tl-t">Legal: Civil / Criminal</div>
+                                    <div class="tl-d">Copyright infringement — lawsuits and damages.</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ▓▓ S14: FORMS OF PLAGIARISM ▓▓ -->
+        <section class="slide" data-i="13">
+            <div class="bg-dots para" data-s=".05" style="position:absolute;inset:0;"></div>
+            <div class="si">
+                <div class="lbl">Slide 14 · 7 Forms</div>
+                <h2 class="H md" style="margin-bottom:13px;">FORMS OF <span class="b">PLAGIARISM</span></h2>
+                <div class="g4">
+                    <div class="tc">
+                        <div class="tc-ic"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="var(--b)"
+                                stroke-width="2">
+                                <rect x="9" y="9" width="13" height="13" rx="2" />
+                                <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1" />
+                            </svg></div>
+                        <div class="tc-t">Direct Plagiarism</div>
+                        <div class="tc-d">Copy-pasting text verbatim without citation.</div>
+                    </div>
+                    <div class="tc">
+                        <div class="tc-ic"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="var(--b)"
+                                stroke-width="2">
+                                <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7" />
+                                <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z" />
+                            </svg></div>
+                        <div class="tc-t">Paraphrasing</div>
+                        <div class="tc-d">Rewriting another's ideas without attribution.</div>
+                    </div>
+                    <div class="tc">
+                        <div class="tc-ic"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="var(--b)"
+                                stroke-width="2">
+                                <path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8" />
+                                <path d="M3 3v5h5" />
+                            </svg></div>
+                        <div class="tc-t">Self-Plagiarism</div>
+                        <div class="tc-d">Reusing one's own previous work without disclosure.</div>
+                    </div>
+                    <div class="tc">
+                        <div class="tc-ic"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="var(--b)"
+                                stroke-width="2">
+                                <path
+                                    d="M9 3H5a2 2 0 0 0-2 2v4m6-6h10a2 2 0 0 1 2 2v4M9 3v18m0 0h10a2 2 0 0 0 2-2V9M9 21H5a2 2 0 0 1-2-2V9m0 0h18" />
+                            </svg></div>
+                        <div class="tc-t">Mosaic Plagiarism</div>
+                        <div class="tc-d">Blending paraphrased and copied text from multiple sources.</div>
+                    </div>
+                    <div class="tc">
+                        <div class="tc-ic"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="var(--b)"
+                                stroke-width="2">
+                                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
+                                <polyline points="14 2 14 8 20 8" />
+                            </svg></div>
+                        <div class="tc-t">Purchased Work</div>
+                        <div class="tc-d">Submitting downloaded or purchased assignments as original.</div>
+                    </div>
+                    <div class="tc">
+                        <div class="tc-ic"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="var(--b)"
+                                stroke-width="2">
+                                <polyline points="16 18 22 12 16 6" />
+                                <polyline points="8 6 2 12 8 18" />
+                            </svg></div>
+                        <div class="tc-t">Code Plagiarism</div>
+                        <div class="tc-d">Reusing code without attribution to the original author.</div>
+                    </div>
+                    <div class="tc">
+                        <div class="tc-ic"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="var(--b)"
+                                stroke-width="2">
+                                <circle cx="12" cy="12" r="10" />
+                                <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3" />
+                                <line x1="12" y1="17" x2="12.01" y2="17" />
+                            </svg></div>
+                        <div class="tc-t">AI Plagiarism</div>
+                        <div class="tc-d">Presenting AI-generated content as entirely one's own where prohibited.</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ▓▓ S15: TRADEMARK INFRINGEMENT ▓▓ -->
+        <section class="slide" data-i="14">
+            <div class="bg-grid para" data-s=".04" style="position:absolute;inset:0;"></div>
+            <div class="para" data-s=".13"
+                style="position:absolute;bottom:-6%;right:-4%;width:min(240px,32vw);aspect-ratio:1;border-radius:50%;background:radial-gradient(circle,rgba(23,64,232,.07),transparent 70%);">
+            </div>
+            <div class="si">
+                <div class="lbl">Slide 15 · IP Issues</div>
+                <h2 class="H md" style="margin-bottom:14px;">TRADEMARK <span class="b">INFRINGEMENT</span></h2>
+                <div class="col2">
+                    <div style="display:flex;flex-direction:column;gap:8px;">
+                        <div class="ii"><strong>Definition</strong>Using a mark identical or confusingly similar to a
+                            registered trademark without authorization.</div>
+                        <div class="ii"><strong>Examples</strong>Creating a similar logo, selling counterfeit goods,
+                            mimicking product packaging.</div>
+                        <div class="ii"><strong>Legal Standard</strong>"Likelihood of confusion" among consumers is the
+                            determining test.</div>
+                    </div>
+                    <div style="display:flex;flex-direction:column;gap:8px;">
+                        <div class="ii"><strong>Penalties</strong>Court injunctions, monetary damages, forced
+                            rebranding, destruction of goods.</div>
+                        <div class="ii"><strong>Parody Defense</strong>Clear satire may be protected — if no consumer
+                            confusion is possible.</div>
+                        <div class="cal-r cal">Search the IP Philippines Trademark Database before naming your app or
+                            company.</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ▓▓ S16: PARODY & BRANDS ▓▓ -->
+        <section class="slide" data-i="15">
+            <div class="bg-dots para" data-s=".05" style="position:absolute;inset:0;"></div>
+            <div class="para" data-s=".13"
+                style="position:absolute;bottom:-6%;right:-4%;width:min(260px,35vw);aspect-ratio:1;border-radius:50%;background:radial-gradient(circle,rgba(245,200,0,.16),transparent 70%);">
+            </div>
+            <div class="si">
+                <div class="lbl">Slide 16 · Parody in Branding</div>
+                <h2 class="H lg" style="margin-bottom:10px;">PARODY <span class="b">&amp;</span> BRANDS</h2>
+                <p class="cap" style="margin-bottom:14px;">Parody is protected when it is <strong>clearly
+                        satirical</strong> and not likely to cause consumer confusion. Would a reasonable person
+                    actually be confused?</p>
+                <div class="g2" style="gap:clamp(10px,1.5vw,16px);margin-bottom:13px;">
+                    <div class="bcp">
+                        <div class="bc-box">
+                            <div class="bc-tag bc-orig">Original Brand</div>
+                            <div class="bc-nm" style="color:var(--b);">Facebook</div>
+                            <p class="bc-d">Global social media platform. Trademark protected since 2004.</p>
+                        </div>
+                        <div class="vs-c">VS</div>
+                        <div class="bc-box">
+                            <div class="bc-tag bc-para">Parody</div>
+                            <div class="bc-nm">FACEBOOL</div>
+                            <p class="bc-d">Local fishball store. Clearly satirical — no confusion possible.</p>
+                        </div>
+                    </div>
+                    <div class="bcp">
+                        <div class="bc-box">
+                            <div class="bc-tag bc-orig">Original Brand</div>
+                            <div class="bc-nm" style="color:var(--b);font-size:clamp(20px,3vw,30px);">7-Eleven</div>
+                            <p class="bc-d">Global convenience chain. Trademark registered worldwide.</p>
+                        </div>
+                        <div class="vs-c">VS</div>
+                        <div class="bc-box">
+                            <div class="bc-tag bc-para">Parody</div>
+                            <div class="bc-nm" style="font-size:clamp(18px,2.5vw,26px);">7 Evelyn</div>
+                            <p class="bc-d">Local sari-sari store joke. No reasonable person would confuse it with a
+                                major chain.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="cal">Parody works as a legal defense when satirical intent is <strong>unmistakably
+                        obvious</strong>. Genuine consumer confusion = infringement.</div>
+            </div>
+        </section>
+
+        <!-- ▓▓ S17: WHAT IS CYBERSQUATTING ▓▓ -->
+        <section class="slide" data-i="16">
+            <div class="bg-grid para" data-s=".04" style="position:absolute;inset:0;"></div>
+            <div class="para" data-s=".13"
+                style="position:absolute;top:-6%;right:-4%;width:min(280px,38vw);aspect-ratio:1;border-radius:50%;background:radial-gradient(circle,rgba(23,64,232,.07),transparent 70%);">
+            </div>
+            <div class="si">
+                <div class="lbl">Slide 17 · Cybersquatting</div>
+                <h2 class="H lg" style="margin-bottom:13px;">WHAT IS <span class="b">CYBERSQUATTING?</span></h2>
+                <div class="col2">
+                    <div>
+                        <p class="body" style="font-size:clamp(12px,1.3vw,14px);">Cybersquatting is the practice of
+                            <strong>registering, trafficking in, or using a domain name</strong> that is identical or
+                            confusingly similar to a trademark, with the bad-faith intent to profit from the trademark
+                            owner's goodwill.</p>
+                        <div class="cal-r cal" style="margin-top:11px;">Illegal under the <strong>ACPA</strong> in the
+                            US and the <strong>UDRP</strong> internationally.</div>
+                        <div class="stats" style="margin-top:11px;">
+                            <div class="stat">
+                                <div class="stat-n">5</div>
+                                <div class="stat-l">Types</div>
+                            </div>
+                            <div class="stat">
+                                <div class="stat-n" style="font-size:clamp(16px,2.5vw,22px);">UDRP</div>
+                                <div class="stat-l">Legal Remedy</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div style="display:flex;flex-direction:column;gap:8px;">
+                        <div class="ii"><strong>Common Motive</strong>Registering "google-official.com" then demanding
+                            $50,000 from Google to buy it back.</div>
+                        <div class="ii"><strong>Who It Harms</strong>Trademark holders, consumers, and legitimate
+                            businesses.</div>
+                        <div class="ii"><strong>UDRP</strong>Uniform Domain Dispute Resolution Policy — allows trademark
+                            holders to recover domains internationally.</div>
+                        <div class="ii"><strong>Best Practice</strong>Register your domain and common variations early —
+                            before launching any product or brand.</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ▓▓ S18: TYPES OF CYBERSQUATTING ▓▓ -->
+        <section class="slide" data-i="17">
+            <div class="bg-dots para" data-s=".05" style="position:absolute;inset:0;"></div>
+            <div class="para" data-s=".12"
+                style="position:absolute;top:-6%;left:-4%;width:min(240px,32vw);aspect-ratio:1;border-radius:50%;background:radial-gradient(circle,rgba(245,200,0,.15),transparent 70%);">
+            </div>
+            <div class="si">
+                <div class="lbl">Slide 18 · Cybersquatting — Types</div>
+                <h2 class="H md" style="margin-bottom:13px;">TYPES OF <span class="b">CYBERSQUATTING</span></h2>
+                <div class="g3">
+                    <div class="tc">
+                        <div class="tc-ic"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="var(--b)"
+                                stroke-width="2">
+                                <circle cx="12" cy="12" r="10" />
+                                <line x1="2" y1="12" x2="22" y2="12" />
+                                <path
+                                    d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z" />
+                            </svg></div>
+                        <div class="tc-t">Classic Cybersquatting</div>
+                        <div class="tc-d">Registering a trademark as a domain to sell it back at inflated price.</div>
+                    </div>
+                    <div class="tc">
+                        <div class="tc-ic"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="var(--b)"
+                                stroke-width="2">
+                                <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7" />
+                                <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z" />
+                            </svg></div>
+                        <div class="tc-t">Typosquatting</div>
+                        <div class="tc-d">Registering misspelled brand domains (e.g., "gooogle.com") to capture traffic.
+                        </div>
+                    </div>
+                    <div class="tc">
+                        <div class="tc-ic"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="var(--b)"
+                                stroke-width="2">
+                                <path
+                                    d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z" />
+                            </svg></div>
+                        <div class="tc-t">Reverse Hijacking</div>
+                        <div class="tc-d">Filing a bad-faith dispute to seize a legitimately registered domain.</div>
+                    </div>
+                    <div class="tc">
+                        <div class="tc-ic"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="var(--b)"
+                                stroke-width="2">
+                                <path d="M15 7h3a5 5 0 0 1 5 5 5 5 0 0 1-5 5h-3m-6 0H6a5 5 0 0 1-5-5 5 5 0 0 1 5-5h3" />
+                                <line x1="8" y1="12" x2="16" y2="12" />
+                            </svg></div>
+                        <div class="tc-t">Combosquatting</div>
+                        <div class="tc-d">Combining a trademark with other words (e.g., "paypal-support.com").</div>
+                    </div>
+                    <div class="tc">
+                        <div class="tc-ic"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="var(--b)"
+                                stroke-width="2">
+                                <path
+                                    d="M12 3h7a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-7m0-18H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h7m0-18v18" />
+                            </svg></div>
+                        <div class="tc-t">Homograph Attacks</div>
+                        <div class="tc-d">Using visually similar characters (Cyrillic) to mimic a legitimate domain.
+                        </div>
+                    </div>
+                    <div class="tc">
+                        <div class="tc-ic"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="var(--b)"
+                                stroke-width="2">
+                                <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14" />
+                                <polyline points="22 4 12 14.01 9 11.01" />
+                            </svg></div>
+                        <div class="tc-t">Legal Fix: UDRP</div>
+                        <div class="tc-d">International mechanism for domain recovery by trademark holders.</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ▓▓ S19: ACTIVITY 2 ▓▓ -->
+        <section class="slide center" data-i="18">
+            <div class="bg-dots para" data-s=".03" style="position:absolute;inset:0;"></div>
+            <div class="para" data-s=".13"
+                style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:min(340px,48vw);aspect-ratio:1;border-radius:50%;background:radial-gradient(circle,rgba(245,200,0,.22),transparent 70%);">
+            </div>
+            <div class="si">
+                <div class="act-w">
+                    <div class="act-badge">★ ACTIVITY 2 — PASS THE BALLOON</div>
+                    <svg class="bal" width="72" height="96" viewBox="0 0 72 96">
+                        <ellipse cx="36" cy="42" rx="30" ry="36" fill="var(--y)" opacity=".9" />
+                        <ellipse cx="28" cy="27" rx="8" ry="9" fill="rgba(255,255,255,.28)" />
+                        <path d="M36 78 Q32 86 36 92 Q40 86 36 78Z" fill="#d4ac00" />
+                        <line x1="36" y1="92" x2="36" y2="95" stroke="var(--i3)" stroke-width="1.5" />
+                    </svg>
+                    <div class="act-ttl">PASS THE<br><span
+                            style="color:var(--y);-webkit-text-stroke:1.5px var(--ink);">BALLOON!</span></div>
+                    <div class="act-q">
+                        <div class="act-ql">Question · Cybersquatting</div>
+                        <div class="act-qt">What do you call registering a misspelled version of a popular brand's
+                            domain name (like "gooogle.com") to capture traffic?</div>
+                        <ul class="act-opts">
+                            <li>
+                                <div class="opt-l">A</div>Combosquatting
+                            </li>
+                            <li>
+                                <div class="opt-l">B</div>Typosquatting
+                            </li>
+                            <li>
+                                <div class="opt-l">C</div>Classic Cybersquatting
+                            </li>
+                            <li>
+                                <div class="opt-l">D</div>Homograph Attack
+                            </li>
+                        </ul>
+                        <div class="act-ans" id="a2"><svg width="11" height="11" viewBox="0 0 24 24" fill="none"
+                                stroke="currentColor" stroke-width="2.5"
+                                style="margin-right:4px;vertical-align:middle;">
+                                <polyline points="20 6 9 17 4 12" />
+                            </svg><strong>Answer: B — Typosquatting</strong> — Registering deliberately misspelled brand
+                            domains to capture misdirected traffic.</div>
+                        <button class="rev-btn"
+                            onclick="document.getElementById('a2').classList.add('show');this.style.display='none'">Reveal
+                            Answer</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ▓▓ S20: HOW AUTHORITIES DETECT ▓▓ -->
+        <section class="slide" data-i="19">
+            <div class="bg-grid para" data-s=".05" style="position:absolute;inset:0;"></div>
+            <div class="si">
+                <div class="lbl">Slide 20 · Enforcement</div>
+                <h2 class="H md" style="margin-bottom:10px;">HOW <span class="b">AUTHORITIES DETECT</span> IP VIOLATIONS
+                </h2>
+                <p class="cap" style="margin-bottom:12px;">Authorities and platforms use automated systems and legal
+                    mechanisms to detect and enforce IP violations.</p>
+                <div class="tw">
+                    <table class="data-tbl">
+                        <thead>
+                            <tr>
+                                <th>IP Type</th>
+                                <th>Detection Method</th>
+                                <th>Who Enforces</th>
+                                <th>Common Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Copyright</td>
+                                <td>Content ID, hash-matching, DMCA notices</td>
+                                <td>Platform AI, rights holders, courts</td>
+                                <td>Takedown, demonetize, block</td>
+                            </tr>
+                            <tr>
+                                <td>Patent</td>
+                                <td>Patent database search, reverse-engineering</td>
+                                <td>USPTO, IPO Philippines, courts</td>
+                                <td>Injunction, damages, licensing</td>
+                            </tr>
+                            <tr>
+                                <td>Trademark</td>
+                                <td>Trademark watch services, marketplace bots</td>
+                                <td>IP Philippines, courts, platforms</td>
+                                <td>Domain seizure, account ban, fines</td>
+                            </tr>
+                            <tr>
+                                <td>Plagiarism</td>
+                                <td>Turnitin, Grammarly, MOSS (code)</td>
+                                <td>Academic institutions, employers</td>
+                                <td>Grade zero, expulsion, termination</td>
+                            </tr>
+                            <tr>
+                                <td>Cybersquatting</td>
+                                <td>WHOIS lookup, brand monitoring tools</td>
+                                <td>ICANN, UDRP panelists, courts</td>
+                                <td>Domain transfer, cancellation, fines</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+        <!-- ▓▓ S21: ETHICAL DUTIES ▓▓ -->
+        <section class="slide" data-i="20">
+            <div class="bg-dots para" data-s=".04" style="position:absolute;inset:0;"></div>
+            <div class="para" data-s=".12"
+                style="position:absolute;bottom:-6%;left:-4%;width:min(240px,32vw);aspect-ratio:1;border-radius:50%;background:radial-gradient(circle,rgba(23,64,232,.07),transparent 70%);">
+            </div>
+            <div class="si">
+                <div class="lbl">Slide 21 · Ethics &amp; Legal Duties</div>
+                <h2 class="H md" style="margin-bottom:13px;">ETHICAL &amp; <span class="b">LEGAL</span> DUTIES</h2>
+                <div class="col2">
+                    <div>
+                        <p
+                            style="font-size:9px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--i3);margin-bottom:9px;">
+                            Responsible IP Practices</p>
+                        <ul class="chk">
+                            <li>
+                                <div class="chk-ic"><svg width="9" height="9" viewBox="0 0 12 12" fill="none">
+                                        <polyline points="1,6 4,9 11,3" stroke="white" stroke-width="2.2"
+                                            stroke-linecap="round" />
+                                    </svg></div>Cite all sources properly in academic and professional work
+                            </li>
+                            <li>
+                                <div class="chk-ic"><svg width="9" height="9" viewBox="0 0 12 12" fill="none">
+                                        <polyline points="1,6 4,9 11,3" stroke="white" stroke-width="2.2"
+                                            stroke-linecap="round" />
+                                    </svg></div>Review software licenses before using, modifying, or distributing code
+                            </li>
+                            <li>
+                                <div class="chk-ic"><svg width="9" height="9" viewBox="0 0 12 12" fill="none">
+                                        <polyline points="1,6 4,9 11,3" stroke="white" stroke-width="2.2"
+                                            stroke-linecap="round" />
+                                    </svg></div>Register original trademarks before launching products
+                            </li>
+                            <li>
+                                <div class="chk-ic"><svg width="9" height="9" viewBox="0 0 12 12" fill="none">
+                                        <polyline points="1,6 4,9 11,3" stroke="white" stroke-width="2.2"
+                                            stroke-linecap="round" />
+                                    </svg></div>Avoid unauthorized use of protected images, music, and software
+                            </li>
+                            <li>
+                                <div class="chk-ic"><svg width="9" height="9" viewBox="0 0 12 12" fill="none">
+                                        <polyline points="1,6 4,9 11,3" stroke="white" stroke-width="2.2"
+                                            stroke-linecap="round" />
+                                    </svg></div>Conduct IP audits and implement confidentiality policies
+                            </li>
+                        </ul>
+                    </div>
+                    <div>
+                        <p
+                            style="font-size:9px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--i3);margin-bottom:9px;">
+                            Preventive Measures</p>
+                        <ul class="chk">
+                            <li>
+                                <div class="chk-ic"><svg width="9" height="9" viewBox="0 0 12 12" fill="none">
+                                        <polyline points="1,6 4,9 11,3" stroke="white" stroke-width="2.2"
+                                            stroke-linecap="round" />
+                                    </svg></div>Use detection tools — Turnitin, Grammarly, MOSS for code
+                            </li>
+                            <li>
+                                <div class="chk-ic"><svg width="9" height="9" viewBox="0 0 12 12" fill="none">
+                                        <polyline points="1,6 4,9 11,3" stroke="white" stroke-width="2.2"
+                                            stroke-linecap="round" />
+                                    </svg></div>Maintain documentation of original work with timestamps
+                            </li>
+                            <li>
+                                <div class="chk-ic"><svg width="9" height="9" viewBox="0 0 12 12" fill="none">
+                                        <polyline points="1,6 4,9 11,3" stroke="white" stroke-width="2.2"
+                                            stroke-linecap="round" />
+                                    </svg></div>Consult legal professionals before product launches
+                            </li>
+                            <li>
+                                <div class="chk-ic"><svg width="9" height="9" viewBox="0 0 12 12" fill="none">
+                                        <polyline points="1,6 4,9 11,3" stroke="white" stroke-width="2.2"
+                                            stroke-linecap="round" />
+                                    </svg></div>Use SCA tools for open-source license compliance
+                            </li>
+                            <li>
+                                <div class="chk-ic"><svg width="9" height="9" viewBox="0 0 12 12" fill="none">
+                                        <polyline points="1,6 4,9 11,3" stroke="white" stroke-width="2.2"
+                                            stroke-linecap="round" />
+                                    </svg></div>Establish internal IP policies and training programs
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ▓▓ S22: CONCLUSION ▓▓ -->
+        <section class="slide center" data-i="21">
+            <div class="bg-grid para" data-s=".03" style="position:absolute;inset:0;"></div>
+            <div class="para" data-s=".14"
+                style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:min(460px,60vw);aspect-ratio:1;border-radius:50%;background:radial-gradient(circle,rgba(23,64,232,.06),transparent 70%);">
+            </div>
+            <div class="si" style="text-align:center;">
+                <div class="lbl" style="justify-content:center;">Conclusion</div>
+                <h1 class="H xl" style="margin-bottom:16px;">PROTECT<br>WHAT YOU<br><span class="b">CREATE.</span></h1>
+                <div
+                    style="width:36px;height:3px;background:linear-gradient(90deg,var(--b),var(--y));margin:0 auto 16px;border-radius:2px;">
+                </div>
+                <p
+                    style="font-size:clamp(13px,1.5vw,15px);color:var(--i2);line-height:1.7;max-width:500px;margin:0 auto 24px;">
+                    Intellectual Property is foundational in modern digital ecosystems. Understanding IP is not merely a
+                    legal obligation — it is a <strong>strategic necessity</strong>.</p>
+                <div class="g3" style="max-width:740px;margin:0 auto;">
+                    <div
+                        style="background:var(--sur);border:1.5px solid var(--bor);border-radius:12px;padding:clamp(11px,1.5vw,14px);display:flex;align-items:center;gap:10px;box-shadow:var(--s1);">
+                        <div
+                            style="width:30px;height:30px;border-radius:8px;background:var(--b);display:flex;align-items:center;justify-content:center;flex-shrink:0;font-family:var(--H);font-weight:900;font-size:15px;color:#fff;">
+                            C</div>
+                        <span style="font-size:clamp(11px,1.3vw,13px);font-weight:600;color:var(--ink);">Copyright
+                            protects creative works</span>
+                    </div>
+                    <div
+                        style="background:var(--sur);border:1.5px solid var(--bor);border-radius:12px;padding:clamp(11px,1.5vw,14px);display:flex;align-items:center;gap:10px;box-shadow:var(--s1);">
+                        <div
+                            style="width:30px;height:30px;border-radius:8px;background:var(--b);display:flex;align-items:center;justify-content:center;flex-shrink:0;font-family:var(--H);font-weight:900;font-size:15px;color:#fff;">
+                            P</div>
+                        <span style="font-size:clamp(11px,1.3vw,13px);font-weight:600;color:var(--ink);">Patents protect
+                            inventions</span>
+                    </div>
+                    <div
+                        style="background:var(--sur);border:1.5px solid var(--bor);border-radius:12px;padding:clamp(11px,1.5vw,14px);display:flex;align-items:center;gap:10px;box-shadow:var(--s1);">
+                        <div
+                            style="width:30px;height:30px;border-radius:8px;background:var(--b);display:flex;align-items:center;justify-content:center;flex-shrink:0;font-family:var(--H);font-weight:900;font-size:15px;color:#fff;">
+                            T</div>
+                        <span style="font-size:clamp(11px,1.3vw,13px);font-weight:600;color:var(--ink);">Trademarks
+                            protect brands</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ▓▓ S23: QUIZ TEASER ▓▓ -->
+        <section class="slide center" data-i="22">
+            <div class="bg-dots para" data-s=".03" style="position:absolute;inset:0;"></div>
+            <div class="para" data-s=".16"
+                style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:min(420px,56vw);aspect-ratio:1;border-radius:50%;background:radial-gradient(circle,rgba(245,200,0,.2),transparent 70%);">
+            </div>
+            <div class="si" style="text-align:center;">
+                <div class="lbl" style="justify-content:center;">Challenge</div>
+                <h2 class="H xl" style="margin-bottom:12px;">QUIZ<br><span class="b">TIME.</span></h2>
+                <p
+                    style="font-size:clamp(12px,1.4vw,14px);color:var(--i3);max-width:400px;margin:0 auto 16px;line-height:1.65;">
+                    15 questions on Intellectual Property. One representative per group. Rankings are live.</p>
+                <div class="pills" style="justify-content:center;margin-bottom:22px;">
+                    <div class="pill">7 Multiple Choice</div>
+                    <div class="pill">5 True / False</div>
+                    <div class="pill">2 Fill in the Blank</div>
+                    <div class="pill">1 Code Challenge</div>
+                </div>
+                <button class="btn-p" style="font-size:15px;padding:13px 40px;" onclick="openQ()">Open Quiz</button>
+            </div>
+        </section>
+
+        <!-- ▓▓ S24: MEMBERS ▓▓ -->
+        <section class="slide" data-i="23">
+            <div class="bg-grid para" data-s=".04" style="position:absolute;inset:0;"></div>
+            <div class="si">
+                <div class="lbl">Slide 24 · The Team</div>
+                <h2 class="H lg" style="margin-bottom:clamp(12px,2vw,18px);">GROUP <span class="b">4</span></h2>
+                <div class="g3">
+                    <div class="mc">
+                        <div class="mc-av">A</div>
+                        <div class="mc-n">Arnado</div>
+                        <div class="mc-r">Group Member</div>
+                    </div>
+                    <div class="mc">
+                        <div class="mc-av">B</div>
+                        <div class="mc-n">Beron</div>
+                        <div class="mc-r">Group Member</div>
+                    </div>
+                    <div class="mc">
+                        <div class="mc-av">P</div>
+                        <div class="mc-n">Pangan</div>
+                        <div class="mc-r">Group Member</div>
+                    </div>
+                    <div class="mc">
+                        <div class="mc-av">F</div>
+                        <div class="mc-n">Felasol</div>
+                        <div class="mc-r">Group Member</div>
+                    </div>
+                    <div class="mc">
+                        <div class="mc-av">G</div>
+                        <div class="mc-n">Geralla</div>
+                        <div class="mc-r">Group Member</div>
+                    </div>
+                    <div class="mc">
+                        <div class="mc-av">T</div>
+                        <div class="mc-n">Tabuno</div>
+                        <div class="mc-r">Group Member</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </div><!-- /deck -->
+
+    <!-- NAV -->
+    <button class="narr" id="nprev" onclick="go(-1)" disabled>
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
+            stroke-linecap="round">
+            <polyline points="15 18 9 12 15 6" />
+        </svg>
+    </button>
+    <button class="narr" id="nnext" onclick="go(1)">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
+            stroke-linecap="round">
+            <polyline points="9 18 15 12 9 6" />
+        </svg>
+    </button>
+    <div id="pbar"></div>
+    <div id="dots"></div>
+
+    <!-- QUIZ -->
+    <div id="qov">
+        <div class="qp">
+            <button class="qclose" onclick="closeQ()"><svg width="10" height="10" viewBox="0 0 24 24" fill="none"
+                    stroke="currentColor" stroke-width="2.5" stroke-linecap="round">
+                    <line x1="18" y1="6" x2="6" y2="18" />
+                    <line x1="6" y1="6" x2="18" y2="18" />
+                </svg></button>
+            <div class="qs on" id="q0">
+                <div class="qt">QUIZ <span>CHALLENGE</span></div>
+                <p class="qsub">15 questions on Intellectual Property. Select your group, enter the representative name,
+                    and begin.</p>
+                <div class="pills" style="margin-bottom:20px;">
+                    <div class="pill">7 MC</div>
+                    <div class="pill">5 T/F</div>
+                    <div class="pill">2 Fill-in</div>
+                    <div class="pill">1 Code</div>
+                </div>
+                <button class="btn-p" onclick="goQ(1)">Start Quiz</button>
+            </div>
+            <div class="qs" id="q1">
+                <div class="qt">SELECT <span>GROUP</span></div>
+                <p class="qsub">Tap your group number, then enter the representative's name.</p>
+                <div class="gbrow">
+                    <div class="gbtn" onclick="selG(this,'Group 1')">1<span class="gbl">GROUP</span></div>
+                    <div class="gbtn" onclick="selG(this,'Group 2')">2<span class="gbl">GROUP</span></div>
+                    <div class="gbtn" onclick="selG(this,'Group 3')">3<span class="gbl">GROUP</span></div>
+                    <div class="gbtn" disabled>4<span class="gbl">YOU</span></div>
+                    <div class="gbtn" onclick="selG(this,'Group 5')">5<span class="gbl">GROUP</span></div>
+                    <div class="gbtn" onclick="selG(this,'Group 6')">6<span class="gbl">GROUP</span></div>
+                    <div class="gbtn" onclick="selG(this,'Group 7')">7<span class="gbl">GROUP</span></div>
+                </div>
+                <div style="margin-bottom:14px;"><label class="flbl">Representative Name</label><input class="finp"
+                        type="text" id="rep" placeholder="Enter full name"></div>
+                <div class="ferr" id="gerr">Please select a group and enter your name.</div>
+                <button class="btn-p" onclick="startQ()">Proceed to Quiz</button>
+            </div>
+            <div class="qs" id="q2">
+                <div class="qprogw">
+                    <div class="qprogb" id="qpb"></div>
+                </div>
+                <div id="qa"></div>
+                <div id="reqn" class="req"></div>
+                <div class="qnav">
+                    <button class="btn-s" id="qprev2" onclick="qm(-1)"><svg width="10" height="10" viewBox="0 0 24 24"
+                            fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"
+                            style="margin-right:3px;">
+                            <polyline points="15 18 9 12 15 6" />
+                        </svg>Back</button>
+                    <button class="btn-p" id="qnext" onclick="qm(1)">Next</button>
+                </div>
+            </div>
+            <div class="qs" id="q3">
+                <div class="qt">YOUR <span>RESULTS</span></div>
+                <div class="sbig" id="sbig">0/15</div>
+                <div class="rstats">
+                    <div class="rstat">
+                        <div class="rsn ok" id="rc">0</div>
+                        <div class="rsl">Correct</div>
+                    </div>
+                    <div class="rstat">
+                        <div class="rsn bad" id="rw">0</div>
+                        <div class="rsl">Wrong</div>
+                    </div>
+                </div>
+                <div class="revw">
+                    <table class="rtbl">
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Question</th>
+                                <th>Your Answer</th>
+                                <th>Correct</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody id="rvb"></tbody>
+                    </table>
+                </div>
+                <button class="btn-p" onclick="showLB()">View Leaderboard</button>
+            </div>
+            <div class="qs" id="q4">
+                <div class="qt">LEADER<span>BOARD</span></div>
+                <p class="qsub">Live rankings from all participating groups.</p>
+                <div id="poda"></div>
+                <div id="lboth"></div>
+                <div style="margin-top:13px;"><button class="btn-s" onclick="closeQ()">Close</button></div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const T = 24; let cur = 0, snd = true, qG = '', qR = '', ans = [];
+        const AC = new (window.AudioContext || window.webkitAudioContext)();
+        function bp(f, d, v, t) { if (!snd) return; try { const o = AC.createOscillator(), g = AC.createGain(); o.connect(g); g.connect(AC.destination); o.frequency.value = f; o.type = t || 'sine'; g.gain.setValueAtTime(v || .08, AC.currentTime); g.gain.exponentialRampToValueAtTime(.001, AC.currentTime + d); o.start(); o.stop(AC.currentTime + d); } catch (e) { } }
+        const sfxS = () => { bp(360, .05, .07); setTimeout(() => bp(460, .05, .07), 55); };
+        const sfxC = () => bp(620, .04, .09, 'square');
+        const sfxF = () => bp(200, .14, .08, 'sawtooth');
+        const sfxD = () => { [523, 659, 784, 1047].forEach((f, i) => setTimeout(() => bp(f, .13), i * 95)); };
+        const sfxL = () => { [784, 880, 1047, 1319].forEach((f, i) => setTimeout(() => bp(f, .15), i * 110)); };
+        document.getElementById('sndbtn').onclick = () => {
+            snd = !snd;
+            document.getElementById('sndic').innerHTML = snd
+                ? `<polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/>`
+                : `<polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><line x1="23" y1="9" x2="17" y2="15"/><line x1="17" y1="9" x2="23" y2="15"/>`;
+            sfxC();
+        };
+        const SL = document.querySelectorAll('.slide');
+        const DC = document.getElementById('dots');
+        SL.forEach((_, i) => { const d = document.createElement('div'); d.className = 'dn' + (i === 0 ? ' on' : ''); d.onclick = () => goto(i); DC.appendChild(d); });
+        function goto(n) {
+            if (n < 0 || n >= T) return;
+            SL[cur].classList.remove('act'); SL[cur].classList.add('out');
+            const p = cur; setTimeout(() => SL[p].classList.remove('out'), 480);
+            cur = n; SL[cur].classList.add('act'); SL[cur].scrollTop = 0;
+            document.getElementById('tbc').textContent = String(cur + 1).padStart(2, '0') + ' / ' + String(T).padStart(2, '0');
+            document.getElementById('pbar').style.width = ((cur + 1) / T * 100) + '%';
+            document.querySelectorAll('.dn').forEach((d, i) => d.classList.toggle('on', i === cur));
+            document.getElementById('nprev').disabled = cur === 0;
+            document.getElementById('nnext').disabled = cur === T - 1;
+            sfxS(); doP(0, 0);
+        }
+        function go(d) { goto(cur + d); }
+        document.getElementById('pbar').style.width = (1 / T * 100) + '%';
+        document.addEventListener('keydown', e => {
+            if (document.getElementById('qov').classList.contains('on')) return;
+            if (['ArrowRight', 'ArrowDown'].includes(e.key)) { e.preventDefault(); go(1); }
+            if (['ArrowLeft', 'ArrowUp'].includes(e.key)) { e.preventDefault(); go(-1); }
+        });
+        // Touch swipe
+        let tx = 0;
+        document.getElementById('deck').addEventListener('touchstart', e => { tx = e.touches[0].clientX; }, { passive: true });
+        document.getElementById('deck').addEventListener('touchend', e => {
+            const dx = e.changedTouches[0].clientX - tx;
+            if (Math.abs(dx) > 50) { go(dx < 0 ? 1 : -1); }
+        }, { passive: true });
+        // Parallax
+        let mx = 0, my = 0;
+        document.addEventListener('mousemove', e => { mx = (e.clientX / window.innerWidth - .5) * 2; my = (e.clientY / window.innerHeight - .5) * 2; doP(mx, my); });
+        function doP(x, y) { SL[cur].querySelectorAll('.para').forEach(el => { if (!el.dataset.s) return; const s = parseFloat(el.dataset.s); el.style.transform = `translate(${x * 75 * s}px,${y * 55 * s}px)`; }); }
+
+        const QD = [
+            { t: 'mc', q: "What does 'IP' stand for in legal terms?", opts: ["Internet Protocol", "Intellectual Property", "Individual Privacy", "Information Processing"], ans: 1 },
+            { t: 'mc', q: "Which IP type automatically protects your code, music, and artwork upon creation?", opts: ["Patent", "Trademark", "Copyright", "Trade Secret"], ans: 2 },
+            { t: 'mc', q: "A trademark protects which of the following?", opts: ["A software algorithm", "A company's logo and brand name", "A new invention", "A published book"], ans: 1 },
+            { t: 'mc', q: "How long does a standard utility patent last?", opts: ["10 years", "20 years", "50 years", "Forever"], ans: 1 },
+            { t: 'mc', q: "Which open-source license requires all derivative works to also be open-source?", opts: ["MIT", "Apache 2.0", "GPL", "BSD"], ans: 2 },
+            { t: 'mc', q: "What is cybersquatting?", opts: ["Hacking a website", "Registering domain names to profit from someone else's trademark", "Copying a website's design", "Unauthorized server access"], ans: 1 },
+            { t: 'mc', q: "Which form of plagiarism involves reusing your own previous work without disclosure?", opts: ["Mosaic plagiarism", "Paraphrasing", "Direct plagiarism", "Self-plagiarism"], ans: 3 },
+            { t: 'tf', q: "Copyright protection is automatic — you do not need to register to be protected.", ans: 0 },
+            { t: 'tf', q: "A trademark can last forever as long as it stays in active use.", ans: 0 },
+            { t: 'tf', q: "Adding 'For Academic Purposes Only' to a Facebook post is a legal defense against copyright.", ans: 1 },
+            { t: 'tf', q: "The MIT License allows commercial use of the software.", ans: 0 },
+            { t: 'tf', q: "Typosquatting means registering deliberately misspelled versions of brand domain names.", ans: 0 },
+            { t: 'fitb', q: "________ protects inventions and technical solutions to problems.", ans: "Patent" },
+            { t: 'fitb', q: "________ is the act of presenting someone else's work as your own without acknowledgment.", ans: "Plagiarism" },
+            { t: 'code', q: "What will this Python code print?", code: `c = <span class="st">"Copyright"</span>\np = <span class="st">"Patent"</span>\nt = <span class="st">"Trademark"</span>\nresult = c[<span class="kw">0</span>] + p[<span class="kw">0</span>] + t[<span class="kw">0</span>]\n<span class="kw">print</span>(result)`, opts: ["CPT", "CoPaTr", "cpt", "C+P+T"], ans: 0 }
+        ];
+        let qCur = 0;
+        function openQ() { document.getElementById('qov').classList.add('on'); sfxC(); }
+        function closeQ() { document.getElementById('qov').classList.remove('on'); sfxC(); }
+        function goQ(n) { document.querySelectorAll('.qs').forEach(s => s.classList.remove('on')); document.getElementById('q' + n).classList.add('on'); sfxC(); }
+        function selG(el, g) { document.querySelectorAll('.gbtn:not(:disabled)').forEach(b => b.classList.remove('sel')); el.classList.add('sel'); qG = g; sfxC(); }
+        function startQ() { qR = document.getElementById('rep').value.trim(); if (!qG || !qR) { document.getElementById('gerr').style.display = 'block'; return; } document.getElementById('gerr').style.display = 'none'; ans = new Array(QD.length).fill(null); qCur = 0; goQ(2); rQ(); }
+        function rQ() {
+            const q = QD[qCur];
+            document.getElementById('qpb').style.width = ((qCur + 1) / QD.length * 100) + '%';
+            const bdg = q.t === 'mc' ? '<span class="qbdg mc">Multiple Choice</span>' : q.t === 'tf' ? '<span class="qbdg tf">True or False</span>' : q.t === 'fitb' ? '<span class="qbdg fb">Fill in the Blank</span>' : '<span class="qbdg cd">Code Challenge</span>';
+            let html = '';
+            if (q.t === 'mc' || q.t === 'tf') { const o = q.t === 'tf' ? ['True', 'False'] : q.opts; html = `<div class="qcnt">Q${qCur + 1} of ${QD.length}</div>${bdg}<div class="qtxt">${q.q}</div><div class="opts">${o.map((x, i) => `<label class="opt${ans[qCur] === i ? ' sel' : ''}" onclick="pk(${i})"><input type="radio" name="qr" ${ans[qCur] === i ? 'checked' : ''}>${x}</label>`).join('')}</div>`; }
+            else if (q.t === 'fitb') { const p = q.q.split('________'); html = `<div class="qcnt">Q${qCur + 1} of ${QD.length}</div>${bdg}<div class="qtxt"><input class="finp" id="fi" style="width:150px;display:inline-block;margin:0 5px;vertical-align:middle;" type="text" value="${ans[qCur] || ''}" oninput="ans[${qCur}]=this.value" placeholder="your answer">${p[1] || ''}</div>`; }
+            else { html = `<div class="qcnt">Q${qCur + 1} of ${QD.length}</div>${bdg}<div class="qtxt">${q.q}</div><div class="cblk"><pre>${q.code}</pre></div><div class="opts">${q.opts.map((x, i) => `<label class="opt${ans[qCur] === i ? ' sel' : ''}" onclick="pk(${i})"><input type="radio" name="qr" ${ans[qCur] === i ? 'checked' : ''}>${x}</label>`).join('')}</div>`; }
+            document.getElementById('qa').innerHTML = html;
+            document.getElementById('reqn').style.display = 'none';
+            document.getElementById('qprev2').style.visibility = qCur === 0 ? 'hidden' : 'visible';
+            document.getElementById('qnext').textContent = qCur === QD.length - 1 ? 'Submit' : 'Next';
+        }
+        function pk(i) { ans[qCur] = i; document.querySelectorAll('.opt').forEach((el, j) => el.classList.toggle('sel', j === i)); sfxC(); }
+        function qm(d) {
+            const q = QD[qCur];
+            if (q.t === 'fitb') { ans[qCur] = document.getElementById('fi')?.value || ''; }
+            if (d === 1) { const bl = ans[qCur] === null || (q.t === 'fitb' && !(ans[qCur] || '').trim()); if (bl) { const r = document.getElementById('reqn'); r.textContent = '⚠ This question is required.'; r.style.display = 'block'; sfxF(); return; } }
+            document.getElementById('reqn').style.display = 'none';
+            if (d === 1 && qCur === QD.length - 1) { subQ(); return; }
+            qCur += d; if (qCur < 0) qCur = 0; rQ(); sfxC();
+        }
+        function subQ() {
+            sfxD(); let ok = 0; const tb = document.getElementById('rvb'); tb.innerHTML = '';
+            QD.forEach((q, i) => {
+                let ua, ca, correct;
+                if (q.t === 'mc' || q.t === 'tf' || q.t === 'code') { const o = q.t === 'tf' ? ['True', 'False'] : q.opts; ua = ans[i] !== null ? o[ans[i]] : '(blank)'; ca = o[q.ans]; correct = ans[i] === q.ans; }
+                else { ua = ans[i] || '(blank)'; ca = q.ans; correct = (ans[i] || '').trim().toLowerCase() === q.ans.toLowerCase(); }
+                if (correct) ok++;
+                const okS = `<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#00a050" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>`;
+                const ngS = `<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#e84040" stroke-width="2.5"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>`;
+                tb.innerHTML += `<tr><td style="color:var(--i3)">${i + 1}</td><td style="max-width:120px;font-size:10px;">${q.q.substring(0, 44)}…</td><td style="color:${correct ? '#00a050' : '#e84040'};font-size:11px;">${ua}</td><td style="color:var(--b);font-size:11px;">${ca}</td><td>${correct ? okS : ngS}</td></tr>`;
+            });
+            document.getElementById('sbig').textContent = `${ok}/${QD.length}`;
+            document.getElementById('rc').textContent = ok;
+            document.getElementById('rw').textContent = QD.length - ok;
+            goQ(3);
+            if (window.$save) window.$save({ group: qG, rep: qR, score: ok, total: QD.length, ts: Date.now() });
+        }
+        function showLB() {
+            goQ(4); sfxL();
+            const pa = document.getElementById('poda'), lo = document.getElementById('lboth');
+            pa.innerHTML = '<p style="text-align:center;color:var(--i3);padding:16px;font-size:13px;">Loading…</p>';
+            const render = scores => {
+                if (!scores || !scores.length) { pa.innerHTML = '<p style="text-align:center;color:var(--i3);padding:22px;font-size:13px;">No scores yet — be first!</p>'; lo.innerHTML = ''; return; }
+                const sorted = [...scores].sort((a, b) => b.score - a.score);
+                const init = n => (n || '?').split(' ').map(w => w[0]).join('').substring(0, 2).toUpperCase();
+                const order = [1, 0, 2], pcls = ['p2', 'p1', 'p3'], prk = ['2', '1', '3'], pdl = [.15, 0, .3];
+                const pw = document.createElement('div'); pw.className = 'podw';
+                order.forEach((si, pi) => { if (!sorted[si]) return; const s = sorted[si]; const col = document.createElement('div'); col.className = 'podcol'; col.innerHTML = `<div class="podcard ${pcls[pi]}" style="animation-delay:${pdl[pi]}s"><div class="pod-av">${init(s.rep)}</div><div class="pod-g">${s.group || '?'}</div><div class="pod-r">${s.rep || '?'}</div><div class="pod-s">${s.score}/${s.total || 15}</div></div><div class="pod-blk ${pcls[pi]}"><div class="pod-rnk">${prk[pi]}</div></div>`; pw.appendChild(col); });
+                pa.innerHTML = ''; pa.appendChild(pw); lo.innerHTML = '';
+                if (sorted.length > 3) {
+                    const ht = document.createElement('p'); ht.style.cssText = 'font-size:9px;font-weight:700;letter-spacing:2.5px;text-transform:uppercase;color:var(--i3);margin-bottom:7px;'; ht.textContent = 'Other Groups'; lo.appendChild(ht);
+                    sorted.slice(3).forEach((s, i) => { const row = document.createElement('div'); row.className = 'lbrow'; row.style.animationDelay = (i * .07) + 's'; row.innerHTML = `<div class="lbrn">${i + 4}</div><div class="lbif"><div class="lbg">${s.group || '?'}</div><div class="lbr">${s.rep || '?'}</div></div><div class="lbsc">${s.score}/${s.total || 15}</div>`; lo.appendChild(row); });
+                }
+            };
+            if (window.$listen) window.$listen(render);
+            else render(JSON.parse(localStorage.getItem('ip4') || '[]'));
+        }
+        if (!window.$save) {
+            window.$save = d => { const s = JSON.parse(localStorage.getItem('ip4') || '[]'); s.push(d); localStorage.setItem('ip4', JSON.stringify(s)); };
+            window.$listen = cb => cb(JSON.parse(localStorage.getItem('ip4') || '[]'));
+        }
+    </script>
+</body>
+
+</html>
