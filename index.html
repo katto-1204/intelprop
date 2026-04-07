@@ -1002,7 +1002,8 @@
         .hk::after {
             content: '';
             position: absolute;
-            inset-x: 0;
+            left: 0;
+            right: 0;
             top: 0;
             height: 3px;
             background: linear-gradient(90deg, var(--b), var(--y));
@@ -2091,6 +2092,14 @@
                 padding: 13px 14px;
             }
         }
+
+        @keyframes balPop {
+            0% { transform: scale(1); opacity: 1; }
+            45% { transform: scale(1.4); opacity: 0.5; }
+            100% { transform: scale(0); opacity: 0; }
+        }
+        .bal { transition: transform 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275); transform-origin: center; }
+        .bal.popped { animation: balPop 0.35s forwards; pointer-events: none; }
     </style>
 </head>
 
@@ -2761,7 +2770,7 @@
                             </svg><strong>Answer: C — GNU GPL</strong> — Copyleft license requiring all derivatives to
                             also be distributed under GPL.</div>
                         <button class="rev-btn"
-                            onclick="document.getElementById('a1').classList.add('show');this.style.display='none'">Reveal
+                            onclick="document.getElementById('a1').classList.add('show');this.closest('.act-w').querySelector('.bal').classList.add('popped');this.style.display='none'">Reveal
                             Answer</button>
                     </div>
                 </div>
@@ -3364,7 +3373,7 @@
                             </svg><strong>Answer: B — Typosquatting</strong> — Registering deliberately misspelled brand
                             domains to capture misdirected traffic.</div>
                         <button class="rev-btn"
-                            onclick="document.getElementById('a2').classList.add('show');this.style.display='none'">Reveal
+                            onclick="document.getElementById('a2').classList.add('show');this.closest('.act-w').querySelector('.bal').classList.add('popped');this.style.display='none'">Reveal
                             Answer</button>
                     </div>
                 </div>
